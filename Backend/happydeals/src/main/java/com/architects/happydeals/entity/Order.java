@@ -1,12 +1,12 @@
 package com.architects.happydeals.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -20,4 +20,11 @@ public class Order {
     private Date orderDate;
     private String orderStatus;
     private BigDecimal orderTotal;
+
+    @ManyToMany
+    private Set<Product> Products= new HashSet<>();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="fk_Main_Cart")
+    private MainCart mainCart;
 }
