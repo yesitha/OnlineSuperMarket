@@ -13,7 +13,8 @@ import java.util.Set;
 
 public class Cart {
     @Id
-    private String cartId;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long cartId;
     private String cartName;
 
 

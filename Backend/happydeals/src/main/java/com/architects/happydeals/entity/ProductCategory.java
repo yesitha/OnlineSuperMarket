@@ -12,7 +12,8 @@ import java.util.List;
 
 public class ProductCategory {
     @Id
-    private String productCategoryId;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long productCategoryId;
     private String productCategoryName;
 
     @OneToMany(cascade= CascadeType.ALL)

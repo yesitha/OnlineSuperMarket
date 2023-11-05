@@ -13,7 +13,8 @@ import java.util.Set;
 
 public class MainCart {
     @Id
-    private String mainCartId;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long mainCartId;
 
     @OneToMany(mappedBy = "mainCart")
     private Set<MainCartProduct> mainCartProducts = new HashSet<>();
@@ -24,6 +25,4 @@ public class MainCart {
     @OneToOne
     @JoinColumn(name = "customer_id") // Specify the foreign key column
     private Customer customer;
-
-
 }

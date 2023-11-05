@@ -15,10 +15,10 @@ import java.io.Serializable;
 public class MainCartProductId implements Serializable {
 
     @Column(name = "product_id")
-    private String productId;
+    private Long productId;
 
     @Column(name = "main_cart_id")
-    private String mainCartId;
+    private Long mainCartId;
 
     // Additional fields or methods can be added as needed
 }

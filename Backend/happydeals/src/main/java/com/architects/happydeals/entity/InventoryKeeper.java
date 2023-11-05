@@ -14,7 +14,8 @@ import java.util.List;
 
 public class InventoryKeeper {
     @Id
-    private String inventoryKeeperId;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long inventoryKeeperId;
     private String inventoryKeeperName;
     private String inventoryKeeperPhoneNumber;
     private String inventoryKeeperEmail;
