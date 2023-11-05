@@ -1,26 +1,28 @@
 package com.architects.happydeals.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Data
-@Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 
 public class Customer {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private String customerId;
+    private Long customerId;
     private String customerName;
-    private String customerAddress;
+
+    @Embedded
+    private CustomerAddress customerAddress;
+
     private String customerEmail;
     private char[] customerPassword;
     private String customerPhoneNumber;
+    private String designation;
 
     @OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name="fk_Customer_id",referencedColumnName ="customerId")
@@ -32,6 +34,11 @@ public class Customer {
 
     @OneToOne(mappedBy = "customer")
     private MainCart mainCart;
+}
 
-
+@Embeddable
+class CustomerAddress {
+    private String street;
+    private String city;
+    private String district;
 }

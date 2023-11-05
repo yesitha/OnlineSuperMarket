@@ -16,8 +16,8 @@ import java.io.Serializable;
 public class OrderProductId implements Serializable {
 
     @Column(name = "product_id")
-    private String productId;
+    private Long productId;
 
     @Column(name = "order_id")
-    private String orderId;
+    private Long orderId;
 }

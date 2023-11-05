@@ -15,7 +15,7 @@ public class DeliveryPerson {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     //@Column(name="DP_id")
-    private String deliveryPersonId;
+    private Long deliveryPersonId;
     private String deliveryPersonName;
     private String deliveryPersonPhoneNumber;
     private String deliveryPersonEmail;
