@@ -16,8 +16,7 @@ import java.util.Set;
 @Table(name = "CustomerOrder") // "order," which is a reserved keyword in SQL, is not a valid table name
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long orderId;
+    private String orderId;
     private Date orderDate;
     private String orderStatus;
     private BigDecimal orderTotal;

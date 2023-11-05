@@ -13,16 +13,17 @@ import java.util.Set;
 
 public class MainCart {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long mainCartId;
+    private String mainCartId;
 
     @OneToMany(mappedBy = "mainCart")
     private Set<MainCartProduct> mainCartProducts = new HashSet<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_CartID")
-    private Cart cart;
-
     @OneToOne(mappedBy = "mainCart")
     private Order order;
+
+    @OneToOne
+    @JoinColumn(name = "customer_id") // Specify the foreign key column
+    private Customer customer;
+
+
 }
