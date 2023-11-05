@@ -13,10 +13,11 @@ import java.util.Set;
 
 public class MainCart {
     @Id
-    private String mainCartId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long mainCartId;
 
-    @ManyToMany
-    private Set<Product> SelectedProducts= new HashSet<>();
+    @OneToMany(mappedBy = "mainCart")
+    private Set<MainCartProduct> mainCartProducts = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="fk_CartID")

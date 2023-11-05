@@ -16,13 +16,17 @@ import java.util.Set;
 @Table(name = "CustomerOrder") // "order," which is a reserved keyword in SQL, is not a valid table name
 public class Order {
     @Id
-    private String orderId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long orderId;
     private Date orderDate;
     private String orderStatus;
     private BigDecimal orderTotal;
 
     @ManyToMany
     private Set<Product> Products= new HashSet<>();
+
+    @OneToMany(mappedBy = "order")
+    private Set<OrderProduct> orderProducts = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="fk_Main_Cart")
