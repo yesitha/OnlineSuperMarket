@@ -13,14 +13,11 @@ import java.util.Set;
 
 public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long cartId;
+    private String cartId;
     private String cartName;
 
 
     @OneToMany(mappedBy = "cart")
     private Set<CartProduct> cartProducts = new HashSet<>();
 
-    @OneToOne(mappedBy = "cart")
-    private MainCart maincart;
 }

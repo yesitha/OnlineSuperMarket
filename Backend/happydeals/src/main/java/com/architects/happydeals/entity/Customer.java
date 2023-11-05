@@ -30,5 +30,8 @@ public class Customer {
     @JoinColumn(name="fk_Customer_id",referencedColumnName ="customerId")
     private List<Cart>Cart;
 
+    @OneToOne(mappedBy = "customer")
+    private MainCart mainCart;
+
 
 }

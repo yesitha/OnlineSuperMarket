@@ -7,13 +7,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
 @RequestMapping("/api/v1/deliveryPersons")
 public class DeliveryPersonController {
 
     private final DeliveryPersonService deliveryPersonService;
 
-    @Autowired
     public DeliveryPersonController(DeliveryPersonService deliveryPersonService) {
         this.deliveryPersonService = deliveryPersonService;
     }
