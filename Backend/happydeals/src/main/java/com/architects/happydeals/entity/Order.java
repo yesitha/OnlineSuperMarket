@@ -1,7 +1,9 @@
 package com.architects.happydeals.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -22,9 +24,9 @@ public class Order {
     private BigDecimal orderTotal;
 
     @ManyToMany
-    private Set<Product> Products= new HashSet<>();
+    private Set<Product> Products = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_Main_Cart")
+    @JoinColumn(name = "fk_Main_Cart")
     private MainCart mainCart;
 }

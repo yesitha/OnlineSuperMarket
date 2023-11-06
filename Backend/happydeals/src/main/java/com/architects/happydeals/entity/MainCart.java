@@ -1,7 +1,9 @@
 package com.architects.happydeals.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,10 +18,10 @@ public class MainCart {
     private String mainCartId;
 
     @ManyToMany
-    private Set<Product> SelectedProducts= new HashSet<>();
+    private Set<Product> SelectedProducts = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_CartID")
+    @JoinColumn(name = "fk_CartID")
     private Cart cart;
 
     @OneToOne(mappedBy = "mainCart")

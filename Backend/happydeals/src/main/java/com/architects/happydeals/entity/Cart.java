@@ -4,7 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +22,7 @@ public class Cart {
     private String cartName;
 
     @ManyToMany
-    private Set<Product> SelectedProducts= new HashSet<>();
+    private Set<Product> SelectedProducts = new HashSet<>();
 
     @OneToOne(mappedBy = "cart")
     private MainCart maincart;
