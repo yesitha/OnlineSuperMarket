@@ -1,12 +1,7 @@
 package com.architects.happydeals.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,11 +13,13 @@ import java.util.Set;
 
 public class Cart {
     @Id
-    private String cartId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long cartId;
     private String cartName;
 
-    @ManyToMany
-    private Set<Product> SelectedProducts = new HashSet<>();
+
+    @OneToMany(mappedBy = "cart")
+    private Set<CartProduct> cartProducts = new HashSet<>();
 
     @OneToOne(mappedBy = "cart")
     private MainCart maincart;

@@ -1,11 +1,7 @@
 package com.architects.happydeals.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -18,7 +14,8 @@ import java.util.Set;
 
 public class Product {
     @Id
-    private String productId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long productId;
     private String productName;
     private String productDescription;
     private BigDecimal productUnitPrice;
@@ -26,11 +23,15 @@ public class Product {
     private String productImage;
     private BigDecimal productDiscount;
 
-    @ManyToMany(mappedBy = "SelectedProducts")
-    private Set<Cart> cartSet = new HashSet<>();
 
-    @ManyToMany(mappedBy = "SelectedProducts")
-    private Set<MainCart> mainCartSet = new HashSet<>();
+    @OneToMany(mappedBy = "product")
+    private Set<CartProduct> cartProducts = new HashSet<>();
+
+    @OneToMany(mappedBy = "product")
+    private Set<MainCartProduct> mainCartProducts = new HashSet<>();
+
+    @OneToMany(mappedBy = "product")
+    private Set<OrderProduct> orderProducts = new HashSet<>();
 
     @ManyToMany(mappedBy = "Products")
     private Set<Order> orderSet = new HashSet<>();
