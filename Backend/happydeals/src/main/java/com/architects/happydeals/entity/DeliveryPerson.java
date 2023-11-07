@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 //@Table(name="deliveryPerson")
@@ -16,7 +17,7 @@ public class DeliveryPerson {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     //@Column(name="DP_id")
-    private String deliveryPersonId;
+    private Long deliveryPersonId;
     private String deliveryPersonName;
     private String deliveryPersonPhoneNumber;
     private String deliveryPersonEmail;

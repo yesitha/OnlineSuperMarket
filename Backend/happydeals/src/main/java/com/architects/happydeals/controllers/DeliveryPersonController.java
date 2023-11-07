@@ -13,7 +13,9 @@ import java.util.List;
 @RequestMapping("/api/v1/deliveryPersons")
 public class DeliveryPersonController {
 
+
     private final DeliveryPersonServiceImpl deliveryPersonService;
+
 
     @Autowired
     public DeliveryPersonController(DeliveryPersonServiceImpl deliveryPersonService) {

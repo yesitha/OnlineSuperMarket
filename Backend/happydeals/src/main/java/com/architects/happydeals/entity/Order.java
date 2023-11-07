@@ -11,18 +11,22 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
 @Table(name = "CustomerOrder") // "order," which is a reserved keyword in SQL, is not a valid table name
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long orderId;
     private Date orderDate;
     private String orderStatus;
     private BigDecimal orderTotal;
+    private String orderShippingAddress;
+    private Date orderDeliveryDate;
+    private BigDecimal orderShippingCost;
 
     @ManyToMany
     private Set<Product> Products = new HashSet<>();

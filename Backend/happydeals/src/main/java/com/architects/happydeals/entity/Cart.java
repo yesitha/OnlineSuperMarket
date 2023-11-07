@@ -7,13 +7,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 
 public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long cartId;
     private String cartName;
 
@@ -21,6 +22,4 @@ public class Cart {
     @OneToMany(mappedBy = "cart")
     private Set<CartProduct> cartProducts = new HashSet<>();
 
-    @OneToOne(mappedBy = "cart")
-    private MainCart maincart;
 }

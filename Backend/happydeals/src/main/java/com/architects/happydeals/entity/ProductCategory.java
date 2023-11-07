@@ -8,13 +8,15 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
 public class ProductCategory {
     @Id
-    private String productCategoryId;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long productCategoryId;
     private String productCategoryName;
 
     @OneToMany(cascade = CascadeType.ALL)

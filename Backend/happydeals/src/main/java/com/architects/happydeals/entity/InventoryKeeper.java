@@ -1,20 +1,20 @@
 package com.architects.happydeals.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
 public class InventoryKeeper {
     @Id
-    private String inventoryKeeperId;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long inventoryKeeperId;
     private String inventoryKeeperName;
     private String inventoryKeeperPhoneNumber;
     private String inventoryKeeperEmail;
