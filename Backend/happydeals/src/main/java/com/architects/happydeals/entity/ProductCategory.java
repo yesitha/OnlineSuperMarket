@@ -1,7 +1,9 @@
 package com.architects.happydeals.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class ProductCategory {
     private Long productCategoryId;
     private String productCategoryName;
 
-    @OneToMany(cascade= CascadeType.ALL)
-    @JoinColumn(name="fk_ProductCategory_Id",referencedColumnName ="productCategoryId")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_ProductCategory_Id", referencedColumnName = "productCategoryId")
     private List<Product> Product;
 }

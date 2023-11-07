@@ -1,7 +1,9 @@
 package com.architects.happydeals.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,6 +21,7 @@ public class MainCart {
 
     @OneToMany(mappedBy = "mainCart")
     private Set<MainCartProduct> mainCartProducts = new HashSet<>();
+
 
     @OneToOne(mappedBy = "mainCart")
     private Order order;

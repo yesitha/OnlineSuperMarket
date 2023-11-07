@@ -1,7 +1,9 @@
 package com.architects.happydeals.controllers;
 
+import com.architects.happydeals.dto.request.requestDeliveryPersonDto;
+import com.architects.happydeals.dto.response.responseDeliveryPersonDto;
 import com.architects.happydeals.entity.DeliveryPerson;
-import com.architects.happydeals.services.DeliveryPersonService;
+import com.architects.happydeals.services.DeliveryPersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,40 +13,43 @@ import java.util.List;
 @RequestMapping("/api/v1/deliveryPersons")
 public class DeliveryPersonController {
 
-    private final DeliveryPersonService deliveryPersonService;
+
+    private final DeliveryPersonServiceImpl deliveryPersonService;
+
+
     @Autowired
-    public DeliveryPersonController(DeliveryPersonService deliveryPersonService) {
+    public DeliveryPersonController(DeliveryPersonServiceImpl deliveryPersonService) {
         this.deliveryPersonService = deliveryPersonService;
     }
+
     @GetMapping("/get-available-delivery-person-list")
-    public List<DeliveryPerson> getAvailableDeliveryPersonList() {
+    public List<responseDeliveryPersonDto> getAvailableDeliveryPersonList() {
         return deliveryPersonService.getAvailableDeliveryPersons();
     }
-    @PutMapping("/update-delivery-person-status/{id}")
-    public void updateDeliveryPersonStatus(@PathVariable Long id, Boolean status) {
-        DeliveryPerson deliveryPerson = deliveryPersonService.getDeliveryPersonById(id);
-        deliveryPerson.setAvailable(status);
-        deliveryPersonService.updateDeliveryPerson(id, deliveryPerson);
+
+    @PutMapping("/update-delivery-person-status/{id}/{status}")
+    public void updateDeliveryPersonStatus(@PathVariable String id, @PathVariable Boolean status) {
+        deliveryPersonService.updateDeliveryPersonStatus(id, status);
 
     }
 
     @GetMapping("/all")
-    public List<DeliveryPerson> getAllDeliveryPersons() {
+    public List<responseDeliveryPersonDto> getAllDeliveryPersons() {
         return deliveryPersonService.getAllDeliveryPersons();
     }
 
     @GetMapping("/{id}")
-    public DeliveryPerson getDeliveryPersonById(@PathVariable Long id) {
+    public responseDeliveryPersonDto getDeliveryPersonById(@PathVariable String id) {
         return deliveryPersonService.getDeliveryPersonById(id);
     }
 
     @PostMapping("/create")
-    public void createDeliveryPerson(@RequestBody DeliveryPerson deliveryPerson) {
+    public void createDeliveryPerson(@RequestBody requestDeliveryPersonDto deliveryPerson) {
         deliveryPersonService.createDeliveryPerson(deliveryPerson);
     }
 
     @PutMapping("/update/{id}")
-    public void updateDeliveryPerson(@PathVariable Long id, @RequestBody DeliveryPerson updatedDeliveryPerson) {
+    public void updateDeliveryPerson(@PathVariable String id, @RequestBody requestDeliveryPersonDto updatedDeliveryPerson) {
         deliveryPersonService.updateDeliveryPerson(id, updatedDeliveryPerson);
     }
 

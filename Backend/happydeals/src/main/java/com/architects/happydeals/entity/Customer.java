@@ -13,8 +13,10 @@ import java.util.List;
 
 public class Customer {
     @Id
+
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long customerId;
+
     private String customerName;
 
     @Embedded
@@ -25,13 +27,13 @@ public class Customer {
     private String customerPhoneNumber;
     private String designation;
 
-    @OneToMany(cascade= CascadeType.ALL)
-    @JoinColumn(name="fk_Customer_id",referencedColumnName ="customerId")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_Customer_id", referencedColumnName = "customerId")
     private List<Order> Order;
 
-    @OneToMany(cascade= CascadeType.ALL)
-    @JoinColumn(name="fk_Customer_id",referencedColumnName ="customerId")
-    private List<Cart>Cart;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_Customer_id", referencedColumnName = "customerId")
+    private List<Cart> Cart;
 
     @OneToOne(mappedBy = "customer")
     private MainCart mainCart;
