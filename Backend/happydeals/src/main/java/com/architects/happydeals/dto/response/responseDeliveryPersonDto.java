@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class responseDeliveryPersonDto {
 
-    private String deliveryPersonId;
+    private Long deliveryPersonId;
     private String deliveryPersonName;
     private String deliveryPersonPhoneNumber;
     private String deliveryPersonEmail;
