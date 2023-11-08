@@ -26,17 +26,6 @@ public class Customer {
     private char[] customerPassword;
     private String customerPhoneNumber;
     private String designation;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_Customer_id", referencedColumnName = "customerId")
-    private List<Order> Order;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_Customer_id", referencedColumnName = "customerId")
-    private List<Cart> Cart;
-
-    @OneToOne(mappedBy = "customer")
-    private MainCart mainCart;
 }
 
 @Embeddable

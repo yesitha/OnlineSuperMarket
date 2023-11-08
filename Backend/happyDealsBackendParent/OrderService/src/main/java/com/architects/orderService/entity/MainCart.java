@@ -17,14 +17,6 @@ public class MainCart {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long mainCartId;
 
-    @OneToMany(mappedBy = "mainCart")
-    private Set<MainCartProduct> mainCartProducts = new HashSet<>();
-
-
     @OneToOne(mappedBy = "mainCart")
     private Order order;
-
-    @OneToOne
-    @JoinColumn(name = "customer_id") // Specify the foreign key column
-    private Customer customer;
 }

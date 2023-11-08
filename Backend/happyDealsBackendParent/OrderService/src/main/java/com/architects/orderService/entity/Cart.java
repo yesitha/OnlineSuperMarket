@@ -17,9 +17,4 @@ public class Cart {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long cartId;
     private String cartName;
-
-
-    @OneToMany(mappedBy = "cart")
-    private Set<CartProduct> cartProducts = new HashSet<>();
-
 }

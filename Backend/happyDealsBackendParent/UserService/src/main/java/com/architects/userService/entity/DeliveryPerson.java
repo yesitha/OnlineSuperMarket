@@ -21,8 +21,4 @@ public class DeliveryPerson {
     private String deliveryPersonEmail;
     private String deliveryPersonPassword;
     private boolean isAvailable = true;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_DP_id", referencedColumnName = "deliveryPersonId")
-    private List<Order> Order;
 }
