@@ -50,22 +50,12 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
                 .collect(Collectors.toList());
     }
 
-    @Override
+
+
+
+
+
     public responseDeliveryPersonDto getDeliveryPersonById(Long id) {
-        return null;
-    }
-
-    @Override
-    public void updateDeliveryPerson(Long id, requestDeliveryPersonDto updatedDeliveryPerson) {
-
-    }
-
-    @Override
-    public void deleteDeliveryPerson(Long id) {
-
-    }
-
-    public responseDeliveryPersonDto getDeliveryPersonById(String id) {
         Optional<DeliveryPerson> deliveryPersonOptional = deliveryPersonRepository.findById(id);
         if (deliveryPersonOptional.isPresent()) {
             return new responseDeliveryPersonDto(
@@ -80,7 +70,7 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
         }
     }
 
-    public void updateDeliveryPerson(String id, requestDeliveryPersonDto updatedDeliveryPerson) {
+    public void updateDeliveryPerson(Long id, requestDeliveryPersonDto updatedDeliveryPerson) {
         // Add validation or specific update logic if needed
         DeliveryPerson deliveryPerson = deliveryPersonRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("DeliveryPerson not found with ID: " + id));
         if (deliveryPerson != null) {
@@ -93,11 +83,11 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
 
     }
 
-    public void deleteDeliveryPerson(String id) {
+    public void deleteDeliveryPerson(Long id) {
         deliveryPersonRepository.deleteById(id);
     }
 
-    public void updateDeliveryPersonStatus(String id, Boolean status) {
+    public void updateDeliveryPersonStatus(Long id, Boolean status) {
         DeliveryPerson deliveryPerson = deliveryPersonRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("DeliveryPerson not found with ID: " + id));
         if (deliveryPerson != null) {
             deliveryPerson.setAvailable(status);
