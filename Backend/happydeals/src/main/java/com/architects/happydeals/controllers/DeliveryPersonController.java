@@ -28,7 +28,7 @@ public class DeliveryPersonController {
     }
 
     @PutMapping("/update-delivery-person-status/{id}/{status}")
-    public void updateDeliveryPersonStatus(@PathVariable String id, @PathVariable Boolean status) {
+    public void updateDeliveryPersonStatus(@PathVariable Long id, @PathVariable Boolean status) {
         deliveryPersonService.updateDeliveryPersonStatus(id, status);
 
     }
@@ -39,7 +39,7 @@ public class DeliveryPersonController {
     }
 
     @GetMapping("/{id}")
-    public responseDeliveryPersonDto getDeliveryPersonById(@PathVariable String id) {
+    public responseDeliveryPersonDto getDeliveryPersonById(@PathVariable Long id) {
         return deliveryPersonService.getDeliveryPersonById(id);
     }
 
@@ -49,7 +49,7 @@ public class DeliveryPersonController {
     }
 
     @PutMapping("/update/{id}")
-    public void updateDeliveryPerson(@PathVariable String id, @RequestBody requestDeliveryPersonDto updatedDeliveryPerson) {
+    public void updateDeliveryPerson(@PathVariable Long id, @RequestBody requestDeliveryPersonDto updatedDeliveryPerson) {
         deliveryPersonService.updateDeliveryPerson(id, updatedDeliveryPerson);
     }
 
