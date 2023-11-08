@@ -106,7 +106,7 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
                 deliveryPerson.getDeliveryPersonName(),
                 deliveryPerson.getDeliveryPersonPhoneNumber(),
                 deliveryPerson.getDeliveryPersonEmail(), null
-                , true, null
+                , true
 
         );
         deliveryPersonRepository.save(dp);
