@@ -26,12 +26,6 @@ public class Order {
     private Date orderDeliveryDate;
     private BigDecimal orderShippingCost;
 
-    @ManyToMany
-    private Set<Product> Products = new HashSet<>();
-
-    @OneToMany(mappedBy = "order")
-    private Set<OrderProduct> orderProducts = new HashSet<>();
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_Main_Cart")
     private MainCart mainCart;
