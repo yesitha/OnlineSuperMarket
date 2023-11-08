@@ -1,3 +1,9 @@
 
 Backend/happydeals/src/main/resources/application.properties
 Backend/happydeals/src/main/resources/application.properties
+Backend/happyDealsBackendParent/DeliveryService/src/main/resources/application.properties
+Backend/happyDealsBackendParent/DeliveryService/src/main/resources/application.properties
+Backend/happyDealsBackendParent/InventoryService/src/main/resources/application.properties
+Backend/happyDealsBackendParent/OrderService/src/main/resources/application.properties
+Backend/happyDealsBackendParent/InventoryService/src/main/resources/application.properties
+Backend/happyDealsBackendParent/OrderService/src/main/resources/application.properties
