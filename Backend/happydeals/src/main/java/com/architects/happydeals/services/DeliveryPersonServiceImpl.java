@@ -108,7 +108,7 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
     public void createDeliveryPerson(requestDeliveryPersonDto deliveryPerson) {
 
         UUID uuid = UUID.randomUUID();
-        String deliveryPersonId = uuid.toString();
+        Long deliveryPersonId = uuid.getMostSignificantBits() & Long.MAX_VALUE;
 
         DeliveryPerson dp = new DeliveryPerson(
 
