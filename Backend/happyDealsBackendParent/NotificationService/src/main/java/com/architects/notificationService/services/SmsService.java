@@ -11,11 +11,14 @@ import com.infobip.model.SmsDestination;
 import com.infobip.model.SmsTextualMessage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Collections;
 
 @Service
 public class SmsService {
+
+    private final WebClient.Builder webClientBuilder;
 
     @Value("${infobip.api.key}")  //API key
     private String apiKey;
@@ -25,6 +28,10 @@ public class SmsService {
 
     @Value("${infobip.recipient.number}")  //  recipient phone number
     private String recipientNumber;
+
+    public SmsService(WebClient.Builder webClientBuilder) {
+        this.webClientBuilder = webClientBuilder;
+    }
 
     public void sendSms(String recipient, String message) {
         // Creating the API client and the Send SMS API instances.

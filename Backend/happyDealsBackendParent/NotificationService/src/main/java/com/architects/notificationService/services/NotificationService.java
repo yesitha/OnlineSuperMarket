@@ -2,18 +2,20 @@ package com.architects.notificationService.services;
 
 
 
-import com.infobip.model.SmsTextualMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class NotificationService {
+    private final WebClient.Builder webClientBuilder;
 
     private final SmsService smsService;
     private final EmailService emailService;
 
     @Autowired
-    public NotificationService(SmsService smsService, EmailService emailService) {
+    public NotificationService(WebClient.Builder webClientBuilder, SmsService smsService, EmailService emailService) {
+        this.webClientBuilder = webClientBuilder;
         this.smsService = smsService;
         this.emailService = emailService;
     }
