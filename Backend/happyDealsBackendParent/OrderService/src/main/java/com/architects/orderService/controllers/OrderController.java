@@ -2,6 +2,7 @@ package com.architects.orderService.controllers;
 
 import com.architects.orderService.services.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,10 @@ public class OrderController {
     }
 
     @PutMapping("/assign-delivery-person-to-order/{orderId}/{deliveryPersonId}")
-    public void assignDeliveryPersonToOrder(Long orderId, Long deliveryPersonId) {
+    public void assignDeliveryPersonToOrder(@PathVariable Long orderId,@PathVariable Long deliveryPersonId) {
+        System.out.println(deliveryPersonId);
+        System.out.println("Hello");
         orderService.assignDeliveryPersonToOrder(orderId, deliveryPersonId);
+
     }
 }
