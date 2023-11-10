@@ -25,6 +25,7 @@ public class Order {
     private String orderShippingAddress;
     private Date orderDeliveryDate;
     private BigDecimal orderShippingCost;
+    private Long deliverPersonId;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_Main_Cart")

@@ -8,3 +8,6 @@ Backend/happyDealsBackendParent/OrderService/src/main/resources/application.prop
 Backend/happyDealsBackendParent/InventoryService/src/main/resources/application.properties
 Backend/happyDealsBackendParent/OrderService/src/main/resources/application.properties
 Backend/happyDealsBackendParent/NotificationService/src/main/resources/application.properties
+Backend/happyDealsBackendParent/OrderService/src/main/resources/application.properties
+*.properties
+Backend/happyDealsBackendParent/InventoryService/src/main/resources/application.properties
