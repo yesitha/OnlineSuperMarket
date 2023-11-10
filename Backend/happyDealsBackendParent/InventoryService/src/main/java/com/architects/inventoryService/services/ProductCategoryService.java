@@ -4,6 +4,7 @@ import com.architects.inventoryService.Repositories.ProductCategoryRepository;
 import com.architects.inventoryService.entity.ProductCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
@@ -12,6 +13,11 @@ public class ProductCategoryService {
 
     @Autowired
     private ProductCategoryRepository productCategoryRepository;
+    private final WebClient.Builder webClientBuilder;
+
+    public ProductCategoryService(WebClient.Builder webClientBuilder) {
+        this.webClientBuilder = webClientBuilder;
+    }
 
     public void saveProductCategory(ProductCategory productCategory) {
         productCategoryRepository.save(productCategory);

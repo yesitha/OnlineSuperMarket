@@ -17,7 +17,6 @@ public class DeliveryPersonController {
     private final DeliveryPersonServiceImpl deliveryPersonService;
 
 
-
     @Autowired
     public DeliveryPersonController(DeliveryPersonServiceImpl deliveryPersonService) {
         this.deliveryPersonService = deliveryPersonService;

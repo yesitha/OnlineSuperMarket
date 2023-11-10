@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class Product {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productId;
     private String productName;
     private String productDescription;
