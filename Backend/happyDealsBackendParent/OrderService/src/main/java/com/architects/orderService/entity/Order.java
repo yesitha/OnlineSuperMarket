@@ -5,8 +5,6 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -28,6 +26,6 @@ public class Order {
     private Long deliverPersonId;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_Main_Cart")
-    private MainCart mainCart;
+    @JoinColumn(name = "fk_Cart")
+    private Cart cart;
 }
