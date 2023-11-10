@@ -1,4 +1,4 @@
-package com.architects.userService.services;
+package com.architects.notificationService.services;
 
 import org.springframework.web.reactive.function.client.WebClient;
 

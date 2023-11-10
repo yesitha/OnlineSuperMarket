@@ -20,7 +20,7 @@ public class OrderController {
     }
 
     @PutMapping("/assign-delivery-person-to-order/{orderId}/{deliveryPersonId}")
-    public void assignDeliveryPersonToOrder(@PathVariable Long orderId,@PathVariable Long deliveryPersonId) {
+    public void assignDeliveryPersonToOrder(@PathVariable Long orderId, @PathVariable Long deliveryPersonId) {
         System.out.println(deliveryPersonId);
         System.out.println("Hello");
         orderService.assignDeliveryPersonToOrder(orderId, deliveryPersonId);

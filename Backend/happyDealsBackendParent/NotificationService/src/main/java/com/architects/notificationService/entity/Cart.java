@@ -1,4 +1,4 @@
-package com.architects.orderService.entity;
+package com.architects.notificationService.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

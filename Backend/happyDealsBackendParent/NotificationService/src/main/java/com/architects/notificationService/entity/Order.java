@@ -1,12 +1,10 @@
-package com.architects.orderService.entity;
+package com.architects.notificationService.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -25,7 +23,6 @@ public class Order {
     private String orderShippingAddress;
     private Date orderDeliveryDate;
     private BigDecimal orderShippingCost;
-    private Long deliverPersonId;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_Main_Cart")
