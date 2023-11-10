@@ -7,6 +7,7 @@ import com.architects.deliveryService.entity.DeliveryPerson;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,10 +17,12 @@ import java.util.stream.Collectors;
 @Service
 public class DeliveryPersonServiceImpl implements DeliveryPersonService {
     private final DeliveryPersonRepository deliveryPersonRepository;
+    private final WebClient webClient;
 
     @Autowired
-    public DeliveryPersonServiceImpl(DeliveryPersonRepository deliveryPersonRepository) {
+    public DeliveryPersonServiceImpl(DeliveryPersonRepository deliveryPersonRepository, WebClient webClient) {
         this.deliveryPersonRepository = deliveryPersonRepository;
+        this.webClient = webClient;
     }
 
 
@@ -100,9 +103,10 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
         UUID uuid = UUID.randomUUID();
         Long deliveryPersonId = uuid.getMostSignificantBits() & Long.MAX_VALUE;
 
+
         DeliveryPerson dp = new DeliveryPerson(
 
-                deliveryPersonId,
+               deliveryPersonId,
                 deliveryPerson.getDeliveryPersonName(),
                 deliveryPerson.getDeliveryPersonPhoneNumber(),
                 deliveryPerson.getDeliveryPersonEmail(), null

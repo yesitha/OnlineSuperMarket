@@ -26,6 +26,7 @@ public class Customer {
     private char[] customerPassword;
     private String customerPhoneNumber;
     private String designation;
+    private String userNotificationPreference;//SMS, EMAIL or  BOTH
 }
 
 @Embeddable

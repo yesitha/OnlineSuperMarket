@@ -1,13 +1,12 @@
-package com.architects.deliveryService.Repositories;
+package com.architects.orderService.Repositories;
 
-import com.architects.deliveryService.entity.DeliveryPerson;
+import com.architects.orderService.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
 @EnableJpaRepositories
-public interface DeliveryPersonRepository extends JpaRepository<DeliveryPerson, Long> {
-
-
+public interface OrderRepository extends JpaRepository<Order, Long>{
 }
