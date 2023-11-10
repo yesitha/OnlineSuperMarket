@@ -4,6 +4,7 @@ import com.architects.inventoryService.entity.Product;
 import com.architects.inventoryService.Repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
@@ -12,6 +13,11 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+    private final WebClient.Builder webClientBuilder;
+
+    public ProductService(WebClient.Builder webClientBuilder) {
+        this.webClientBuilder = webClientBuilder;
+    }
 
     public void saveProduct(Product product) {
         productRepository.save(product);

@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class MainCart {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long mainCartId;
 
     @OneToOne(mappedBy = "mainCart")

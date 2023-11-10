@@ -1,4 +1,4 @@
-package com.architects.deliveryService.config;
+package com.architects.userService.config;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

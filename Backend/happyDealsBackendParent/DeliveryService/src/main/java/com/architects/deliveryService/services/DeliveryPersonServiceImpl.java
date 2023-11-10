@@ -17,12 +17,13 @@ import java.util.stream.Collectors;
 @Service
 public class DeliveryPersonServiceImpl implements DeliveryPersonService {
     private final DeliveryPersonRepository deliveryPersonRepository;
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     @Autowired
-    public DeliveryPersonServiceImpl(DeliveryPersonRepository deliveryPersonRepository, WebClient webClient) {
+    public DeliveryPersonServiceImpl(DeliveryPersonRepository deliveryPersonRepository, WebClient.Builder webClientBuilder) {
         this.deliveryPersonRepository = deliveryPersonRepository;
-        this.webClient = webClient;
+
+        this.webClientBuilder = webClientBuilder;
     }
 
 
@@ -52,10 +53,6 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
                 ))
                 .collect(Collectors.toList());
     }
-
-
-
-
 
 
     public responseDeliveryPersonDto getDeliveryPersonById(Long id) {
@@ -93,8 +90,13 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
     public void updateDeliveryPersonStatus(Long id, Boolean status) {
         DeliveryPerson deliveryPerson = deliveryPersonRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("DeliveryPerson not found with ID: " + id));
         if (deliveryPerson != null) {
+
             deliveryPerson.setAvailable(status);
             deliveryPersonRepository.save(deliveryPerson);
+            if (!status) {
+
+                //notify delivery person code need to be added
+            }
         }
     }
 
@@ -106,7 +108,7 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
 
         DeliveryPerson dp = new DeliveryPerson(
 
-               deliveryPersonId,
+                deliveryPersonId,
                 deliveryPerson.getDeliveryPersonName(),
                 deliveryPerson.getDeliveryPersonPhoneNumber(),
                 deliveryPerson.getDeliveryPersonEmail(), null
