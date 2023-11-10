@@ -16,7 +16,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.Collections;
 
 @Service
-public class SmsService {
+public class SmsService implements notificationServiceInterface {
 
     private final WebClient.Builder webClientBuilder;
 
@@ -31,6 +31,10 @@ public class SmsService {
 
     public SmsService(WebClient.Builder webClientBuilder) {
         this.webClientBuilder = webClientBuilder;
+    }
+    @Override
+    public void sendNotification(String message, String recipient, String subject) {
+        sendSms(recipient, message);
     }
 
     public void sendSms(String recipient, String message) {
@@ -61,5 +65,6 @@ public class SmsService {
 
         }
     }
+
 
 }
