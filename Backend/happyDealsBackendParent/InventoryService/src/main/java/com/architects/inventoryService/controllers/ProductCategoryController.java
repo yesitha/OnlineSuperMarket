@@ -1,7 +1,11 @@
 package com.architects.inventoryService.controllers;
 
+import com.architects.inventoryService.dto.request.RequestProductCategoryDto;
+import com.architects.inventoryService.dto.response.ResponseProductCategoryDto;
 import com.architects.inventoryService.entity.ProductCategory;
+import com.architects.inventoryService.services.InventoryKeeperServiceImpl;
 import com.architects.inventoryService.services.ProductCategoryService;
+import com.architects.inventoryService.services.ProductCategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,18 +19,21 @@ import java.util.List;
 
 public class ProductCategoryController {
 
+    private  final ProductCategoryServiceImpl productCategoryService;
     @Autowired
-    private ProductCategoryService productCategoryService;
+    public ProductCategoryController(ProductCategoryServiceImpl productCategoryService){
+        this.productCategoryService=productCategoryService;
+    }
 
     @PostMapping
-    public String createProduct(@RequestBody ProductCategory productCategory) {
+    public String createProduct(@RequestBody RequestProductCategoryDto productCategory) {
         productCategoryService.saveProductCategory(productCategory);
         return "Product Category created successfully!";
     }
 
     // Update ProductCategory by productCategoryId
     @PutMapping("/{productId}")
-    public String updateProduct(@PathVariable Long productId, @RequestBody ProductCategory updatedProductCategory) {
+    public String updateProduct(@PathVariable Long productId, @RequestBody RequestProductCategoryDto updatedProductCategory) {
         productCategoryService.updateProductCategory(productId, updatedProductCategory);
         return "Product Category updated successfully!";
     }
@@ -40,20 +47,17 @@ public class ProductCategoryController {
 
     // Retrieve all ProductCategorys
     @GetMapping
-    public List<ProductCategory> getAllProductCategorys() {
-        return productCategoryService.getAllProductCategorys();
+    public List<ResponseProductCategoryDto> getAllProductCategorys() {
+        return productCategoryService.getAllProductCategory();
     }
 
     // Retrieve ProductCategory by productCategoryId
     @GetMapping("/{productCategoryId}")
-    public ProductCategory getProductCategoryById(@PathVariable Long productCategoryId) {
+    public ResponseProductCategoryDto getProductCategoryById(@PathVariable Long productCategoryId) {
         return productCategoryService.getProductCategoryById(productCategoryId);
     }
 
-    @GetMapping("/category/{productCategoryName}")
-    public ProductCategory getProductCategoryByCategoryName(@PathVariable String productCategoryName) {
-        return productCategoryService.getProductCategoryByCategoryName(productCategoryName);
-    }
+
 
 
 
