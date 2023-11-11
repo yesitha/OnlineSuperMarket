@@ -1,5 +1,6 @@
 package com.architects.inventoryService.services;
 
+import com.architects.inventoryService.dto.response.ProductDetailsDTO;
 import com.architects.inventoryService.entity.Product;
 import com.architects.inventoryService.Repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,18 @@ public class ProductService {
     public Product getProductById(Long productId) {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
+    }
+
+    public ProductDetailsDTO getProductDetailsById(Long productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
+        return ProductDetailsDTO.builder()
+                .productName(product.getProductName())
+                .productDescription(product.getProductDescription())
+                .productUnitPrice(product.getProductUnitPrice())
+                .productQuantityAvailable(product.getProductQuantityAvailable())
+                .productImage(product.getProductImage())
+                .productDiscount(product.getProductDiscount())
+                .build();
     }
 }

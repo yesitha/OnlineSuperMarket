@@ -11,11 +11,15 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="DeliveryService" target="17" />
       <module name="happydeals" target="17" />
+      <module name="InventoryService" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="DeliveryService" options="-parameters" />
+      <module name="InventoryService" options="-parameters" />
       <module name="happydeals" options="-parameters" />
     </option>
   </component>
