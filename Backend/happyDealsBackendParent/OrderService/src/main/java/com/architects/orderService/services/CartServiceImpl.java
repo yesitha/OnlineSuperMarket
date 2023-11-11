@@ -8,6 +8,7 @@ import com.architects.orderService.dto.response.CartDetailsDTO;
 import com.architects.orderService.dto.request.CartItemDetailsDTO;
 import com.architects.orderService.entity.Cart;
 import com.architects.orderService.entity.CartItem;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -189,6 +190,54 @@ public class CartServiceImpl implements CartService{
         } catch (IllegalStateException e) {
             log.error("Failed to retrieve cart for customer {}. Reason: {}", customerId, e.getMessage());
             throw e;
+        }
+    }
+
+    public BigDecimal updateProductQuantityInCart(Long customerId, Long productId, BigDecimal quantity) {
+        try {
+            // Check if a cart already exists for the provided customerId
+            if (!cartRepository.existsByCustomerId(customerId)) {
+                throw new EntityNotFoundException("No cart exists for customer with ID: " + customerId);
+            }
+
+            // If a cart exists, retrieve the cart
+            Cart cart = cartRepository.findByCustomerId(customerId);
+
+            // Check if the product with the specified productId exists in the cart
+            Optional<CartItem> existingCartItem = cart.getCartItems().stream()
+                    .filter(item -> item.getProductId().equals(productId))
+                    .findFirst();
+
+            if (existingCartItem.isPresent()) {
+                // If the product exists, update the quantity
+                CartItem cartItem = existingCartItem.get();
+                cartItem.setQuantityAdded(quantity);
+
+                // Save the updated CartItem
+                cartItemRepository.save(cartItem);
+
+                // Check if the new quantity is zero, and if so, remove the product from the cart
+                if (quantity.compareTo(BigDecimal.ZERO) == 0) {
+                    removeProductFromCart(customerId, productId);
+                }
+
+                // Calculate and return the updated total quantity of the product in the cart
+                BigDecimal updatedTotalQuantity = cart.getCartItems().stream()
+                        .filter(item -> item.getProductId().equals(productId))
+                        .map(CartItem::getQuantityAdded)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+                return updatedTotalQuantity;
+            } else {
+                // If the product does not exist, throw an exception
+                throw new EntityNotFoundException("Product with ID " + productId + " does not exist in cart with ID " + cart.getCartId());
+            }
+        } catch (EntityNotFoundException e) {
+            // Handle the case where the cart or product is not found
+            throw e;
+        } catch (Exception e) {
+            // Handle other exceptions
+            throw new RuntimeException("Failed to update product quantity in cart. Reason: " + e.getMessage(), e);
         }
     }
 }
