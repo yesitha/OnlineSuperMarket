@@ -10,6 +10,4 @@ import org.springframework.stereotype.Repository;
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Long> {
 
 
-    //@Query(value = "SELECT * FROM product_category WHERE product_category_name = :productCategoryName", nativeQuery = true)
-    public ProductCategory findProductCategoryByProductCategoryName(String productCategoryName);
 }

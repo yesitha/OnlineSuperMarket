@@ -20,4 +20,9 @@ public class ProductCategory {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_ProductCategory_Id", referencedColumnName = "productCategoryId")
     private List<Product> Product;
+
+    public ProductCategory(Long productCategoryId, String productCategoryName) {
+        this.productCategoryId = productCategoryId;
+        this.productCategoryName = productCategoryName;
+    }
 }
