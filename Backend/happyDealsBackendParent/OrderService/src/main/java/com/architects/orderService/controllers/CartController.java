@@ -1,6 +1,8 @@
 package com.architects.orderService.controllers;
 
 import com.architects.orderService.dto.request.AddProductRequestDTO;
+import com.architects.orderService.dto.request.ProductDetailsDTO;
+import com.architects.orderService.dto.response.CartDetailsDTO;
 import com.architects.orderService.services.CartServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,9 +30,23 @@ public class CartController {
     }
 
     //Add a product to a cart
-    @PutMapping("/add-product-to-cart")
+    @PostMapping ("/add-product-to-cart")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addProductToCart(@RequestBody AddProductRequestDTO addProductRequestDTO, @RequestHeader Long customerId) {
-        cartService.addProductToCart(addProductRequestDTO, customerId);
+    public ProductDetailsDTO addProductToCart(@RequestBody AddProductRequestDTO addProductRequestDTO, @RequestHeader("customerId") Long customerId) {
+        return cartService.addProductToCart(addProductRequestDTO, customerId);
+    }
+
+    //Remove a product from a cart
+    @DeleteMapping("/remove-product-from-cart/{productId}")
+    @ResponseStatus(HttpStatus.OK)
+    public String removeProductFromCart(@RequestHeader("customerId") Long customerId, @PathVariable Long productId) {
+        return ("Product with ID " + productId + " removed from cart with ID " + cartService.removeProductFromCart(customerId, productId));
+    }
+
+    //View all products in a cart
+    @GetMapping("/view-products-in-cart")
+    @ResponseStatus(HttpStatus.OK)
+    public CartDetailsDTO viewProductsInCart(@RequestHeader("customerId") Long customerId) {
+        return cartService.viewProductsInCart(customerId);
     }
 }
