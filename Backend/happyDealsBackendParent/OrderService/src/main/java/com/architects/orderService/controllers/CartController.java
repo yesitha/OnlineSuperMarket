@@ -1,5 +1,6 @@
 package com.architects.orderService.controllers;
 
+import com.architects.orderService.dto.request.AddProductRequestDTO;
 import com.architects.orderService.services.CartServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,23 +14,23 @@ public class CartController {
     private final CartServiceImpl cartService;
 
     //Create a cart for a customer
-    @PostMapping("/create-cart/{customerId}")
+    @PostMapping("/create-cart")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createCart(@PathVariable Long customerId) {
+    public String createCart(@RequestHeader("customerId") Long customerId) {
         return ("cartId = " + cartService.createCart(customerId));
     }
 
     //Get a cart by customer ID
-    @GetMapping("/get-cart/{customerId}")
+    @GetMapping("/get-cart")
     @ResponseStatus(HttpStatus.OK)
-    public String getCartByCustomerId(@PathVariable Long customerId) {
+    public String getCartByCustomerId(@RequestHeader("customerId") Long customerId) {
         return ("cartId = " + cartService.getCartByCustomerId(customerId));
     }
 
     //Add a product to a cart
-    @PostMapping("/add-product-to-cart")
+    @PutMapping("/add-product-to-cart")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addProductToCart(Long productId, Long cartId) {
-//        cartService.addProductToCart(productId, cartId);
+    public void addProductToCart(@RequestBody AddProductRequestDTO addProductRequestDTO, @RequestHeader Long customerId) {
+        cartService.addProductToCart(addProductRequestDTO, customerId);
     }
 }

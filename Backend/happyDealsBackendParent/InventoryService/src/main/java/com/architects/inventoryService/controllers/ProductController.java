@@ -1,5 +1,6 @@
 package com.architects.inventoryService.controllers;
 
+import com.architects.inventoryService.dto.response.ProductDetailsDTO;
 import com.architects.inventoryService.entity.Product;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +49,12 @@ public class ProductController {
     @GetMapping("/{productId}")
     public Product getProductById(@PathVariable Long productId) {
         return productService.getProductById(productId);
+    }
+
+    // Retrieve productDetails by productId
+    @GetMapping("/productDetails/{productId}")
+    public ProductDetailsDTO getProductDetailsById(@PathVariable Long productId) {
+        return productService.getProductDetailsById(productId);
     }
 
 }
