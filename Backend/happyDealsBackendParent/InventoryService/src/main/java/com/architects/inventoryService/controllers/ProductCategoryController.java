@@ -50,4 +50,11 @@ public class ProductCategoryController {
         return productCategoryService.getProductCategoryById(productCategoryId);
     }
 
+    @GetMapping("/category/{productCategoryName}")
+    public ProductCategory getProductCategoryByCategoryName(@PathVariable String productCategoryName) {
+        return productCategoryService.getProductCategoryByCategoryName(productCategoryName);
+    }
+
+
+
 }

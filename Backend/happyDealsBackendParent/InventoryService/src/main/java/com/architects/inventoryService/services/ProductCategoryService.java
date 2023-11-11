@@ -48,4 +48,10 @@ public class ProductCategoryService {
         return productCategoryRepository.findById(productCategoryId)
                 .orElseThrow(() -> new RuntimeException("Product Category not found with id " + productCategoryId));
     }
+
+
+    public ProductCategory getProductCategoryByCategoryName(String productCategoryName) {
+        return productCategoryRepository.findProductCategoryByProductCategoryName(productCategoryName);
+    }
+
 }
