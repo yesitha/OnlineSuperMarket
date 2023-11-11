@@ -1,22 +1,17 @@
-package com.architects.inventoryService.entity;
+package com.architects.orderService.dto.request;
 
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 
-@Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long productId;
+@Builder
+public class ProductDetailsDTO {
     private String productName;
     private String productDescription;
     private BigDecimal productUnitPrice;
