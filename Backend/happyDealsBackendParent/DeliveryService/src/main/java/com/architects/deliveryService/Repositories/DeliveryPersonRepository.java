@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @EnableJpaRepositories
 public interface DeliveryPersonRepository extends JpaRepository<DeliveryPerson, Long> {
 
-    // You can add custom queries or methods here if needed.
+
 }

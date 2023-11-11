@@ -19,34 +19,34 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping
-    public String createProduct(@RequestBody Product product){
+    public String createProduct(@RequestBody Product product) {
         productService.saveProduct(product);
         return "Product created successfully!";
     }
 
     // Update Product by productId
     @PutMapping("/{productId}")
-    public String updateProduct(@PathVariable Long productId, @RequestBody Product updatedProduct){
+    public String updateProduct(@PathVariable Long productId, @RequestBody Product updatedProduct) {
         productService.updateProduct(productId, updatedProduct);
         return "Product updated successfully!";
     }
 
     // Delete Product by productId
     @DeleteMapping("/{productId}")
-    public String deleteProduct(@PathVariable Long productId){
+    public String deleteProduct(@PathVariable Long productId) {
         productService.deleteProduct(productId);
         return "Product deleted successfully!";
     }
 
     // Retrieve all Products
     @GetMapping
-    public List<Product> getAllProducts(){
+    public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
 
     // Retrieve Product by productId
     @GetMapping("/{productId}")
-    public Product getProductById(@PathVariable Long productId){
+    public Product getProductById(@PathVariable Long productId) {
         return productService.getProductById(productId);
     }
 

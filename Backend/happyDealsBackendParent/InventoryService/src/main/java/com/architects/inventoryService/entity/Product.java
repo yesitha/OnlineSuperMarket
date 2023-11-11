@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class Product {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long productId;
     private String productName;
     private String productDescription;
@@ -23,19 +23,4 @@ public class Product {
     private String productQuantityAvailable;
     private String productImage;
     private BigDecimal productDiscount;
-
-
-    @OneToMany(mappedBy = "product")
-    private Set<CartProduct> cartProducts = new HashSet<>();
-
-    @OneToMany(mappedBy = "product")
-    private Set<MainCartProduct> mainCartProducts = new HashSet<>();
-
-    @OneToMany(mappedBy = "product")
-    private Set<OrderProduct> orderProducts = new HashSet<>();
-
-    @ManyToMany(mappedBy = "Products")
-    private Set<Order> orderSet = new HashSet<>();
-
-
 }

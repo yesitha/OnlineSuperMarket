@@ -7,6 +7,7 @@ import com.architects.deliveryService.entity.DeliveryPerson;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,10 +17,13 @@ import java.util.stream.Collectors;
 @Service
 public class DeliveryPersonServiceImpl implements DeliveryPersonService {
     private final DeliveryPersonRepository deliveryPersonRepository;
+    private final WebClient.Builder webClientBuilder;
 
     @Autowired
-    public DeliveryPersonServiceImpl(DeliveryPersonRepository deliveryPersonRepository) {
+    public DeliveryPersonServiceImpl(DeliveryPersonRepository deliveryPersonRepository, WebClient.Builder webClientBuilder) {
         this.deliveryPersonRepository = deliveryPersonRepository;
+
+        this.webClientBuilder = webClientBuilder;
     }
 
 
@@ -49,10 +53,6 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
                 ))
                 .collect(Collectors.toList());
     }
-
-
-
-
 
 
     public responseDeliveryPersonDto getDeliveryPersonById(Long id) {
@@ -90,8 +90,13 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
     public void updateDeliveryPersonStatus(Long id, Boolean status) {
         DeliveryPerson deliveryPerson = deliveryPersonRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("DeliveryPerson not found with ID: " + id));
         if (deliveryPerson != null) {
+
             deliveryPerson.setAvailable(status);
             deliveryPersonRepository.save(deliveryPerson);
+            if (!status) {
+
+                //notify delivery person code need to be added
+            }
         }
     }
 
@@ -100,13 +105,14 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
         UUID uuid = UUID.randomUUID();
         Long deliveryPersonId = uuid.getMostSignificantBits() & Long.MAX_VALUE;
 
+
         DeliveryPerson dp = new DeliveryPerson(
 
                 deliveryPersonId,
                 deliveryPerson.getDeliveryPersonName(),
                 deliveryPerson.getDeliveryPersonPhoneNumber(),
                 deliveryPerson.getDeliveryPersonEmail(), null
-                , true, null
+                , true
 
         );
         deliveryPersonRepository.save(dp);
