@@ -88,5 +88,20 @@ public class InventoryKeeperServiceImpl implements InventoryKeeperService {
             throw new EntityNotFoundException("DeliveryPerson not found with ID: " + inventoryKeeperId);
         }
     }
+
+    public ResponseInventoryKeeperDto getInventoryKeeperByName(String inventoryKeeperName){
+        Optional<InventoryKeeper> inventoryKeeperOptional = inventoryKeeperRepository.findByInventoryKeeperName(inventoryKeeperName);
+        if (inventoryKeeperOptional.isPresent()) {
+            return new ResponseInventoryKeeperDto(
+                    inventoryKeeperOptional.get().getInventoryKeeperId(),
+                    inventoryKeeperOptional.get().getInventoryKeeperName(),
+                    inventoryKeeperOptional.get().getInventoryKeeperPhoneNumber(),
+                    inventoryKeeperOptional.get().getInventoryKeeperEmail(),
+                    inventoryKeeperOptional.get().getInventoryKeeperPassword()
+            );
+        } else {
+            throw new EntityNotFoundException("DeliveryPerson not found with Name: " + inventoryKeeperName);
+        }
+    }
 }
 

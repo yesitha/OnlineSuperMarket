@@ -45,9 +45,15 @@ public class InventoryKeeperController {
         return  inventoryKeeperService.getAllInventoryKeepers();
     }
 
-    // Retrieve InventoryKeeper by inventoryKeeperId
-    @GetMapping("/{InventoryKeeperId}")
+     //Retrieve InventoryKeeper by inventoryKeeperId
+    @GetMapping("/{inventoryKeeperId}")
     public ResponseInventoryKeeperDto getAllInventoryKeepersById(@PathVariable Long inventoryKeeperId){
         return inventoryKeeperService.getInventoryKeeperById(inventoryKeeperId);
+    }
+
+    // Retrieve Inventory Keeper by inventoryKeeperName
+    @GetMapping("/name/{inventoryKeeperName}")
+    public ResponseInventoryKeeperDto getRelevantInventoryKeeperByName(@PathVariable String inventoryKeeperName){
+        return inventoryKeeperService.getInventoryKeeperByName(inventoryKeeperName);
     }
 }
