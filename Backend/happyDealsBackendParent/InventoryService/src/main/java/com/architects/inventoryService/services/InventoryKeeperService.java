@@ -21,4 +21,7 @@ public interface InventoryKeeperService {
 
     // Retrieve Inventory Keeper by inventoryKeeperId
     public ResponseInventoryKeeperDto getInventoryKeeperById(Long inventoryKeeperId);
+
+    // Retrieve Inventory Keeper by inventoryKeeperName
+    public ResponseInventoryKeeperDto getInventoryKeeperByName(String inventoryKeeperName);
 }
