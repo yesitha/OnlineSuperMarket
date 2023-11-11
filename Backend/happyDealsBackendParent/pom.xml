@@ -21,6 +21,7 @@
         <module>DeliveryService</module>
         <module>NotificationService</module>
         <module>discovery-service</module>
+        <module>api-gateway</module>
     </modules>
 
     <properties>
