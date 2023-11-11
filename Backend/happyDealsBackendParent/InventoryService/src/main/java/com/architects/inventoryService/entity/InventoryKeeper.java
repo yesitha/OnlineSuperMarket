@@ -20,8 +20,8 @@ public class InventoryKeeper {
     private String inventoryKeeperEmail;
     private String inventoryKeeperPassword;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_InventoryKeeper_Id", referencedColumnName = "inventoryKeeperId")
-    private List<Product> Product;
+//    inventoryKeeperPassword@OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "fk_InventoryKeeper_Id", referencedColumnName = "inventoryKeeperId")
+//    private List<Product> Product;
 
 }
