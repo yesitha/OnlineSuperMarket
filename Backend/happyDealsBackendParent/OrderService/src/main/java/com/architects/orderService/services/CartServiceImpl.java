@@ -240,4 +240,27 @@ public class CartServiceImpl implements CartService{
             throw new RuntimeException("Failed to update product quantity in cart. Reason: " + e.getMessage(), e);
         }
     }
+
+    public String clearProductsInCart(Long customerId) {
+        try {
+            // Check if a cart already exists for the provided customerId
+            if (!cartRepository.existsByCustomerId(customerId)) {
+                throw new IllegalStateException("No cart exists for customer with ID: " + customerId);
+            }
+
+            // If a cart exists, clear the cartItems
+            Cart cart = cartRepository.findByCustomerId(customerId);
+
+            cart.getCartItems().clear();
+            cartItemRepository.deleteAllByCart(cart);
+
+            cartRepository.save(cart);
+
+            log.info("Cart {} cleared successfully", cart.getCartId());
+            return cart.getCartId().toString();
+        } catch (IllegalStateException e) {
+            log.error("Failed to clear cart for customer {}. Reason: {}", customerId, e.getMessage());
+            throw e;
+        }
+    }
 }

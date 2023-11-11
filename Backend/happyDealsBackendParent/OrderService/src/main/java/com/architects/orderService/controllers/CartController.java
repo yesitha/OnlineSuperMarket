@@ -59,4 +59,11 @@ public class CartController {
     public CartDetailsDTO viewProductsInCart(@RequestHeader("customerId") Long customerId) {
         return cartService.viewProductsInCart(customerId);
     }
+
+    //Clear all products in a cart
+    @DeleteMapping("/clear-all-products-in-cart")
+    @ResponseStatus(HttpStatus.OK)
+    public String clearProductsInCart(@RequestHeader("customerId") Long customerId) {
+        return ("Cart with ID " + cartService.clearProductsInCart(customerId) + " cleared");
+    }
 }

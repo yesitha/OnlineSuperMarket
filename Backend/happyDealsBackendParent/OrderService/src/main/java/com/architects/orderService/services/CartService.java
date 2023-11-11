@@ -14,4 +14,5 @@ public interface CartService {
     public String removeProductFromCart(Long customerId, Long productId);
     public CartDetailsDTO viewProductsInCart(Long customerId);
     public BigDecimal updateProductQuantityInCart(Long customerId, Long productId, BigDecimal quantity);
+    public String clearProductsInCart(Long customerId);
 }
