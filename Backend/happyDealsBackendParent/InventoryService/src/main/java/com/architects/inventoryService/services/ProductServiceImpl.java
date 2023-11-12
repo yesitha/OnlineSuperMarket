@@ -1,10 +1,12 @@
 package com.architects.inventoryService.services;
 
+import com.architects.inventoryService.Repositories.ProductCategoryRepository;
 import com.architects.inventoryService.Repositories.ProductRepository;
 import com.architects.inventoryService.dto.request.RequestProductDto;
 import com.architects.inventoryService.dto.response.ResponseProductDto;
 import com.architects.inventoryService.dto.response.ProductDetailsDTO;
 import com.architects.inventoryService.entity.Product;
+import com.architects.inventoryService.entity.ProductCategory;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService{
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private ProductCategoryRepository productCategoryRepository;
     private final WebClient.Builder webClientBuilder;
 
     public ProductServiceImpl(WebClient.Builder webClientBuilder) {
@@ -29,6 +34,10 @@ public class ProductServiceImpl implements ProductService{
     public void createProduct(RequestProductDto product) {
         UUID uuid = UUID.randomUUID();
         Long productID = uuid.getMostSignificantBits() & Long.MAX_VALUE;
+
+        // Retrieve ProductCategory from the repository based on the provided category ID
+        ProductCategory productCategory = productCategoryRepository.findById(product.getProductCategoryId())
+                .orElseThrow(() -> new RuntimeException("Product category not found with ID: " + product.getProductCategoryId()));
         Product p = new Product(
                 productID,
                 product.getProductName(),
@@ -36,7 +45,7 @@ public class ProductServiceImpl implements ProductService{
                 product.getProductUnitPrice(),
                 product.getProductQuantityAvailable(),
                 product.getProductDiscount(),
-                product.getProductCategoryId()
+                productCategory
 
         );
         productRepository.save(p);
