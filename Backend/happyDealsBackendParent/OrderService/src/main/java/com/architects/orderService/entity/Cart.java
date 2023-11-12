@@ -18,15 +18,9 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartId;
     private Long customerId;
-    //product details
-    private Long productId;
-    private BigDecimal quantityAdded =BigDecimal.ZERO;
-    private String productName;
-    private String productDescription;
-    private BigDecimal productUnitPrice;
-    private BigDecimal productQuantityAvailable = BigDecimal.ZERO;
-    private String productImage;
-    private BigDecimal productDiscount;
+
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    private List<CartItem> cartItems;
 
     @OneToOne(mappedBy = "cart")
     private Order order;
