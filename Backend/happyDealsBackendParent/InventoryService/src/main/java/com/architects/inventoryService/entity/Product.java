@@ -21,7 +21,6 @@ public class Product {
     private String productDescription;
     private BigDecimal productUnitPrice;
     private BigDecimal productQuantityAvailable;
-    private String productImage;
     private BigDecimal productDiscount;
 
     @ManyToOne

@@ -58,15 +58,15 @@ public class ProductController {
 
     // Retrieve Product by productId
     @GetMapping("/{productId}")
-    public Product getProductById(@PathVariable Long productId) {
+    public ResponseProductDto getProductById(@PathVariable Long productId) {
         return productService.getProductById(productId);
     }
 
     // Retrieve productDetails by productId
-//    @GetMapping("/productDetails/{productId}")
-//    public ProductDetailsDTO getProductDetailsById(@PathVariable Long productId) {
-//        return productService.getProductDetailsById(productId);
-//    }
+    @GetMapping("/productDetails/{productId}")
+    public ProductDetailsDTO getProductDetailsById(@PathVariable Long productId) {
+        return productService.getProductDetailsById(productId);
+    }
 
     @GetMapping("/availableProducts")
     public List<ResponseProductDto> getAllAvailableProducts() {
