@@ -40,9 +40,9 @@ export default function Products() {
           >
             <SwiperSlide>
               <div className="box">
-                <img src="image/product-1.png" alt="" />
-                <h3>fresh orange</h3>
-                <div className="price">$4.99/ -- 10.99/-</div>
+                <img src="image/apples.png" alt="" />
+                <h3>fresh Apple</h3>
+                <div className="price">Rs 80/ -- 120/-</div>
                 <div className="stars">
                   <FontAwesomeIcon icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />
@@ -57,9 +57,9 @@ export default function Products() {
             </SwiperSlide>
             <SwiperSlide>
               <div className="box">
-                <img src="image/product-2.png" alt="" />
-                <h3>fresh onion</h3>
-                <div className="price">$4.99/ -- 10.99/-</div>
+                <img src="image/chilles.png" alt="" />
+                <h3>fresh Chillies</h3>
+                <div className="price">Rs 250/ -- 300/-</div>
                 <div className="stars">
                   <FontAwesomeIcon icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />
@@ -74,9 +74,9 @@ export default function Products() {
             </SwiperSlide>
             <SwiperSlide>
               <div className="box">
-                <img src="image/product-3.png" alt="" />
-                <h3>fresh meat</h3>
-                <div className="price">$4.99/ -- 10.99/-</div>
+                <img src="image/meat.png" alt="" />
+                <h3>fresh Meat</h3>
+                <div className="price">Rs 1100/ -- 1400/-</div>
                 <div className="stars">
                   <FontAwesomeIcon icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />
@@ -91,9 +91,9 @@ export default function Products() {
             </SwiperSlide>
             <SwiperSlide>
               <div className="box">
-                <img src="image/product-4.png" alt="" />
-                <h3>fresh cabage</h3>
-                <div className="price">$4.99/ -- 10.99/-</div>
+                <img src="image/beans.png" alt="" />
+                <h3>fresh Beans</h3>
+                <div className="price">Rs 240/ -- 320/-</div>
                 <div className="stars">
                   <FontAwesomeIcon icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />
@@ -132,9 +132,9 @@ export default function Products() {
           >
             <SwiperSlide>
               <div className="box">
-                <img src="image/product-5.png" alt="" />
-                <h3>fresh potato</h3>
-                <div className="price">$4.99/ -- 10.99/-</div>
+                <img src="image/Tomatoes.png" alt="" />
+                <h3>fresh Tomato</h3>
+                <div className="price">Rs 200/ -- 240/-</div>
                 <div className="stars">
                   <FontAwesomeIcon icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />
@@ -149,9 +149,9 @@ export default function Products() {
             </SwiperSlide>
             <SwiperSlide>
               <div className="box">
-                <img src="image/product-6.png" alt="" />
-                <h3>fresh avocado</h3>
-                <div className="price">$4.99/ -- 10.99/-</div>
+                <img src="image/eggs.png" alt="" />
+                <h3>fresh Eggs</h3>
+                <div className="price">Rs 45/ -- 65/-</div>
                 <div className="stars">
                   <FontAwesomeIcon icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />
@@ -166,9 +166,9 @@ export default function Products() {
             </SwiperSlide>
             <SwiperSlide>
               <div className="box">
-                <img src="image/product-7.png" alt="" />
-                <h3>fresh carrot</h3>
-                <div className="price">$4.99/ -- 10.99/-</div>
+                <img src="image/bitter-gourd.png" alt="" />
+                <h3>fresh Bitter Gourd</h3>
+                <div className="price">Rs 150/ -- 200/-</div>
                 <div className="stars">
                   <FontAwesomeIcon icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />
@@ -183,9 +183,9 @@ export default function Products() {
             </SwiperSlide>
             <SwiperSlide>
               <div className="box">
-                <img src="image/product-8.png" alt="" />
-                <h3>green lemon</h3>
-                <div className="price">$4.99/ -- 10.99/-</div>
+                <img src="image/waterMellon.png" alt="" />
+                <h3>green Water mellon</h3>
+                <div className="price">Rs 90/ -- 200/-</div>
                 <div className="stars">
                   <FontAwesomeIcon icon={faStar} />
                   <FontAwesomeIcon icon={faStar} />

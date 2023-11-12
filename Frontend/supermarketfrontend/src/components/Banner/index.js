@@ -17,13 +17,12 @@ export default function Banner() {
         <h3>
           fresh and
           {' '}
-          <span>organic</span>
+         organic
           {' '}
           products
         </h3>
         <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Numquam
-          vitae perspiciatis neque soluta.
+        Welcome to HappyDeals where every visit is a step into a visually stunning and user-friendly marketplace!
         </p>
         <button type="button" className="btn">
           shop now
