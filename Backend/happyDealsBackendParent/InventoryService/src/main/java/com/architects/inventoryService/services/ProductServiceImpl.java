@@ -174,4 +174,27 @@ public class ProductServiceImpl implements ProductService{
     }
 
 
+    public boolean cancelOrder(List<OrderDTO> products) {
+        try {
+            List<Product> inventoryToUpdate = new ArrayList<>();
+
+            for (OrderDTO product : products) {
+                Long productId = product.getProductId();
+//                try {
+//                    productId = new ObjectId(product.getProductId());
+//                }catch(Exception e){
+//                    continue;
+//                }
+                Product productItem = productRepository.findById(productId).orElse(null);
+                if (productItem != null) {
+                    productItem.setProductQuantityAvailable(productItem.getProductQuantityAvailable().add(product.getQuantityOrdered()));
+                    inventoryToUpdate.add(productItem);
+                }
+            }
+            productRepository.saveAll(inventoryToUpdate);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
 }

@@ -26,4 +26,5 @@ public interface ProductService {
     public ResponseProductDto getProductById(Long productId);
     public ProductDetailsDTO getProductDetailsById(Long productId);
     public OrderResponseDTO placeOrder(List<OrderDTO> products);
+    public boolean cancelOrder(List<OrderDTO> products);
 }

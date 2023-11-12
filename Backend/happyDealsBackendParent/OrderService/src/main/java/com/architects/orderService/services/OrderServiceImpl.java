@@ -5,10 +5,7 @@ import com.architects.orderService.Repositories.CartRepository;
 import com.architects.orderService.Repositories.OrderRepository;
 import com.architects.orderService.dto.request.OrderItemDTO;
 import com.architects.orderService.dto.request.OrderRequestDTO;
-import com.architects.orderService.dto.response.InventoryConfirmDTO;
-import com.architects.orderService.dto.response.InventoryResponseDTO;
-import com.architects.orderService.dto.response.OrderItemResponseDTO;
-import com.architects.orderService.dto.response.OrderResponse;
+import com.architects.orderService.dto.response.*;
 import com.architects.orderService.entity.Cart;
 import com.architects.orderService.entity.Order;
 import com.architects.orderService.entity.OrderItem;
@@ -27,10 +24,7 @@ import org.springframework.web.util.UriTemplate;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -232,4 +226,95 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
+    public OrdersResponse getAllByCustomerId(Long customerId) {
+        List<Order> orders = orderRepository.findAllByCustomerId(customerId);
+        if(orders.isEmpty()){
+            throw new RestException(HttpStatus.NOT_FOUND, "No orders found");
+        }
+        return OrdersResponse.builder()
+                .orders(orders.stream().map(this::mapToOrderResponse).toList())
+                .build();
+    }
+
+    public OrderResponse getOrder(String orderNumber, Long customerId) {
+        Optional<Order> order = orderRepository.findByOrderNumber(orderNumber);
+        if(order.isEmpty()){
+            throw new RestException(HttpStatus.NOT_FOUND, "Order not found");
+        }
+        System.out.println(customerId);
+        if(!order.get().getCustomerId().equals(customerId)){
+            throw new RestException(HttpStatus.UNAUTHORIZED, "Unauthorized Access");
+        }
+        return mapToOrderResponse(order.get());
+    }
+
+    public OrderResponse cancelOrder(String orderNumber, Long customerId) {
+        Order order = orderRepository.findByOrderNumber(orderNumber).orElse(null);
+        if(order == null){
+            throw new RestException(HttpStatus.NOT_FOUND, "Order not found");
+        }
+        if(!order.getCustomerId().equals(customerId)){
+            throw new RestException(HttpStatus.UNAUTHORIZED, "Unauthorized Access");
+        }
+        if(order.getOrderStatus() != OrderStatus.PLACED){
+            throw new RestException(HttpStatus.FORBIDDEN, "Order is not cancellable");
+        }
+
+        //send details to inventory management to add back the quantities
+        String inventoryConfirmation = webClientBuilder.build()
+                .put()
+                .uri("http://inventory-service/api/v1/products/cancel-order")
+                .bodyValue(order.getOrderItems().stream().map(orderItem -> InventoryConfirmDTO.builder()
+                        .productId(orderItem.getProductId())
+                        .quantityOrdered(orderItem.getQuantityOrdered())
+                        .build()).toList())
+                .retrieve()
+                .bodyToMono(String.class)
+                .onErrorResume(e -> {
+                    throw new RestException(HttpStatus.INTERNAL_SERVER_ERROR, "Error connecting to inventory management");
+                })
+                .block();
+        if(!Objects.equals(inventoryConfirmation, "Success")){
+            throw new RestException(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong cancelling order");
+        }
+        order.setOrderStatus(OrderStatus.CANCELLED);
+        orderRepository.save(order);
+        return mapToOrderResponse(order);
+    }
+
+
+    //ADMIN METHODS
+    public OrderResponse getOrder(String orderNumber){
+        Optional<Order> order = orderRepository.findByOrderNumber(orderNumber);
+        if(order.isEmpty()){
+            throw new RestException(HttpStatus.NOT_FOUND, "Order not found");
+        }
+        return mapToOrderResponse(order.get());
+    }
+
+    public OrdersResponse getAllOrders(){
+        List<Order> orders = orderRepository.findAll();
+        if(orders.isEmpty()){
+            throw new RestException(HttpStatus.NOT_FOUND, "No orders found");
+        }
+        return OrdersResponse.builder()
+                .orders(orders.stream().map(this::mapToOrderResponse).toList())
+                .build();
+    }
+
+    public OrderResponse updateStatusAdmin(String orderNumber){
+        Order order = orderRepository.findByOrderNumber(orderNumber).orElse(null);
+        if(order == null){
+            throw new RestException(HttpStatus.NOT_FOUND, "Order not found");
+        }
+        if(order.getOrderStatus() == OrderStatus.CANCELLED){
+            throw new RestException(HttpStatus.FORBIDDEN, "Order already cancelled");
+        }
+        if(order.getOrderStatus() != OrderStatus.PLACED){
+            throw new RestException(HttpStatus.FORBIDDEN, "Order is already processed");
+        }
+        order.setOrderStatus(OrderStatus.PROCESSED);
+        orderRepository.save(order);
+        return mapToOrderResponse(order);
+    }
 }

@@ -81,4 +81,14 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/cancel-order")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> cancelOrder(@RequestBody List<OrderDTO> products) {
+        boolean result = productService.cancelOrder(products);
+        if (!result) {
+            return new ResponseEntity<>("Failed to cancel order", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>("Success", HttpStatus.OK);
+    }
+
 }
