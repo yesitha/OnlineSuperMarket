@@ -1,12 +1,12 @@
 package com.architects.inventoryService.services;
 
 
+import com.architects.inventoryService.dto.response.OrderDTO;
 import com.architects.inventoryService.dto.request.RequestProductDto;
+import com.architects.inventoryService.dto.response.OrderResponseDTO;
 import com.architects.inventoryService.dto.response.ResponseProductDto;
 
 import com.architects.inventoryService.dto.response.ProductDetailsDTO;
-
-import com.architects.inventoryService.entity.Product;
 
 
 import java.util.List;
@@ -22,17 +22,8 @@ public interface ProductService {
 
     // Retrieve all Products
     public List<ResponseProductDto> getAllProducts();
-
     public List<ResponseProductDto> getAllAvailableProducts();
-
-
     public ResponseProductDto getProductById(Long productId);
-
-
-
-
- public ProductDetailsDTO getProductDetailsById(Long productId);
-
-
-
+    public ProductDetailsDTO getProductDetailsById(Long productId);
+    public OrderResponseDTO placeOrder(List<OrderDTO> products);
 }
