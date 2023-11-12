@@ -2,17 +2,25 @@ package com.architects.inventoryService.services;
 
 import com.architects.inventoryService.Repositories.ProductCategoryRepository;
 import com.architects.inventoryService.Repositories.ProductRepository;
+import com.architects.inventoryService.dto.response.OrderDTO;
 import com.architects.inventoryService.dto.request.RequestProductDto;
+import com.architects.inventoryService.dto.response.OrderConfirmDTO;
+import com.architects.inventoryService.dto.response.OrderResponseDTO;
 import com.architects.inventoryService.dto.response.ResponseProductDto;
 import com.architects.inventoryService.dto.response.ProductDetailsDTO;
 import com.architects.inventoryService.entity.Product;
+
+import com.architects.inventoryService.exception.RestException;
 import com.architects.inventoryService.entity.ProductCategory;
+
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -130,4 +138,74 @@ public class ProductServiceImpl implements ProductService{
                 .build();
     }
 
+
+    public OrderResponseDTO placeOrder(List<OrderDTO> products) {
+        OrderResponseDTO response = new OrderResponseDTO();
+        List<Long> productsWithInsufficientStock = new ArrayList<>();
+        List<OrderConfirmDTO> productsWithSufficientStock = new ArrayList<>();
+        List<Product> inventoryToUpdate = new ArrayList<>();
+
+
+        for (OrderDTO product : products) {
+            Long productId = product.getProductId();
+            Product productItem = productRepository.findById(productId).orElse(null);
+
+            if (productItem == null) {
+                throw new RestException(HttpStatus.NOT_FOUND, "Product not found");
+            } else if (productItem.getProductQuantityAvailable().compareTo(product.getQuantityOrdered()) >= 0) {
+                BigDecimal newQuantity = productItem.getProductQuantityAvailable().subtract(product.getQuantityOrdered());
+                productItem.setProductQuantityAvailable(newQuantity);
+                inventoryToUpdate.add(productItem);
+                productsWithSufficientStock.add(mapToOrderConfirmDTO(productItem, product.getQuantityOrdered()));
+            } else {
+                productsWithInsufficientStock.add(product.getProductId());
+            }
+        }
+
+        if (!productsWithInsufficientStock.isEmpty()) {
+            response.setSuccess(false);
+            response.setFailedProducts(productsWithInsufficientStock);
+        } else {
+            productRepository.saveAll(inventoryToUpdate);
+            response.setSuccess(true);
+            response.setProducts(productsWithSufficientStock);
+        }
+
+        return response;
+    }
+
+    private OrderConfirmDTO mapToOrderConfirmDTO(Product inventory, BigDecimal quantityOrdered) {
+        return OrderConfirmDTO.builder()
+                .productId(inventory.getProductId())
+                .quantityOrdered(quantityOrdered)
+                .productUnitPrice(inventory.getProductUnitPrice())
+                .productName(inventory.getProductName())
+                .productDiscount(inventory.getProductDiscount())
+                .build();
+    }
+
+
+    public boolean cancelOrder(List<OrderDTO> products) {
+        try {
+            List<Product> inventoryToUpdate = new ArrayList<>();
+
+            for (OrderDTO product : products) {
+                Long productId = product.getProductId();
+//                try {
+//                    productId = new ObjectId(product.getProductId());
+//                }catch(Exception e){
+//                    continue;
+//                }
+                Product productItem = productRepository.findById(productId).orElse(null);
+                if (productItem != null) {
+                    productItem.setProductQuantityAvailable(productItem.getProductQuantityAvailable().add(product.getQuantityOrdered()));
+                    inventoryToUpdate.add(productItem);
+                }
+            }
+            productRepository.saveAll(inventoryToUpdate);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
 }
