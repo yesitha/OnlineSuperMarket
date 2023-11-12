@@ -26,13 +26,21 @@ public interface ProductService {
     public List<ResponseProductDto> getAllAvailableProducts();
 
 
-
-     public Product getProductById(Long productId);
+    public Product getProductById(Long productId);
 
 //    public Product getProductById(Long productId) {
 //        return productRepository.findById(productId)
 //                .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
 //    }
+
+
+
+
+//    public Product getProductById(Long productId) {
+//        return productRepository.findById(productId)
+//                .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
+//    }
+
 
 //    public ProductDetailsDTO getProductDetailsById(Long productId) {
 //        Product product = productRepository.findById(productId)

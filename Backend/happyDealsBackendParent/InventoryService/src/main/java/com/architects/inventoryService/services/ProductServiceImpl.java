@@ -35,7 +35,8 @@ public class ProductServiceImpl implements ProductService{
                 product.getProductUnitPrice(),
                 product.getProductQuantityAvailable(),
                 product.getProductImage(),
-                product.getProductDiscount()
+                product.getProductDiscount(),
+                product.getProductCategoryId()
 
         );
         productRepository.save(p);
@@ -75,6 +76,9 @@ public class ProductServiceImpl implements ProductService{
                 ))
                 .collect(Collectors.toList());
     }
+
+    
+
 
     // Retrieve Product by productId
     public Product getProductById(Long productId) {
