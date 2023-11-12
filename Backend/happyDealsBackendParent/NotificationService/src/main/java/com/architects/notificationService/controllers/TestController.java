@@ -26,4 +26,15 @@ public class TestController {
         notificationService.sendTestSms();
         return "Test SMS sent!";
     }
+
+    @GetMapping("/sendTestEmail")
+    public String sendTestEmail() {
+        // Replace the parameters with your test email details
+        String to = "prasadeesankalpana@gmail.com";
+        String subject = "Test Email Subject";
+        String body = "This is a test email message.";
+
+        notificationService.sendEmail(to, subject, body);
+        return "Test Email sent!";
+    }
 }

@@ -1,7 +1,13 @@
 package com.architects.inventoryService.controllers;
 
+import com.architects.inventoryService.dto.request.RequestProductDto;
+import com.architects.inventoryService.dto.response.ResponseProductDto;
+
 import com.architects.inventoryService.dto.response.ProductDetailsDTO;
+
 import com.architects.inventoryService.entity.Product;
+import com.architects.inventoryService.services.InventoryKeeperServiceImpl;
+import com.architects.inventoryService.services.ProductServiceImpl;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,18 +22,21 @@ import java.util.List;
 
 public class ProductController {
 
+    private  final ProductServiceImpl productService;
     @Autowired
-    private ProductService productService;
+    public ProductController(ProductServiceImpl productService){
+        this.productService=productService;
+    }
 
     @PostMapping
-    public String createProduct(@RequestBody Product product) {
-        productService.saveProduct(product);
+    public String createProduct(@RequestBody RequestProductDto product) {
+        productService.createProduct(product);
         return "Product created successfully!";
     }
 
     // Update Product by productId
     @PutMapping("/{productId}")
-    public String updateProduct(@PathVariable Long productId, @RequestBody Product updatedProduct) {
+    public String updateProduct(@PathVariable Long productId, @RequestBody RequestProductDto updatedProduct) {
         productService.updateProduct(productId, updatedProduct);
         return "Product updated successfully!";
     }
@@ -41,13 +50,15 @@ public class ProductController {
 
     // Retrieve all Products
     @GetMapping
-    public List<Product> getAllProducts() {
+    public List<ResponseProductDto> getAllProducts() {
         return productService.getAllProducts();
     }
 
+
+
     // Retrieve Product by productId
     @GetMapping("/{productId}")
-    public Product getProductById(@PathVariable Long productId) {
+    public ResponseProductDto getProductById(@PathVariable Long productId) {
         return productService.getProductById(productId);
     }
 
@@ -57,4 +68,9 @@ public class ProductController {
         return productService.getProductDetailsById(productId);
     }
 
+    @GetMapping("/availableProducts")
+    public List<ResponseProductDto> getAllAvailableProducts() {
+        return productService.getAllAvailableProducts();
+
+    }
 }
