@@ -16,7 +16,7 @@ export default function Banner() {
       <div className="content">
         <h3>
           fresh and
-          {' '}
+          {' '} 
          organic
           {' '}
           products
@@ -24,9 +24,11 @@ export default function Banner() {
         <p>
         Welcome to HappyDeals where every visit is a step into a visually stunning and user-friendly marketplace!
         </p>
-        <button type="button" className="btn">
+        <a href="#products">
+        <button type="button" className="btn"  >
           shop now
         </button>
+        </a>
       </div>
     </section>
   );

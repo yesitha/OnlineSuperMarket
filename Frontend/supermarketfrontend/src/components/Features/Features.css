@@ -9,13 +9,15 @@
   color: #fff;
   display: inline-block;
   padding: 0.5rem 3rem;
-  clip-path: polygon(100% 0, 93% 50%, 100% 99%, 0 100%, 7% 50%, 0 0);
+  clip-path: polygon(190% 0, 100% 99%, 100% 99%, 0 100%, 0% 100%, 0 0);
+  border-radius: 20px;
 }
 .features .content .box-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   gap: 1.5rem;
   flex-wrap: wrap;
+  
 }
 .features .content .box-container .box {
   text-align: center;
@@ -25,6 +27,7 @@
   padding: 3rem 2rem;
   transition: linear 0.2s;
   background: #fff;
+  border-radius: 5rem;
 }
 .features .content .box-container .box:hover {
   outline-offset: 0;

@@ -7,7 +7,7 @@ export default function UserForm(props) {
   const { active } = props;
   return (
     <form className={`user-form ${active ? 'active' : ''}`}>
-      <h3>login now</h3>
+      <h3>user login</h3>
       <div className="box">
         <input type="email" placeholder="your email" />
       </div>
@@ -15,12 +15,12 @@ export default function UserForm(props) {
         <input type="password" placeholder="your password" />
       </div>
       <p>
-        forgot your password
+        forgot your password?
         {' '}
         <a href="/">click here</a>
       </p>
       <p>
-        don&apos;t have an account
+        don&apos;t have an account?
         {' '}
         <a href="/">create now</a>
       </p>
