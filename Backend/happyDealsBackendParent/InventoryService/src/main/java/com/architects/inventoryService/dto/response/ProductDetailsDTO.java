@@ -16,6 +16,5 @@ public class ProductDetailsDTO {
     private String productDescription;
     private BigDecimal productUnitPrice;
     private BigDecimal productQuantityAvailable;
-    private String productImage;
     private BigDecimal productDiscount;
 }

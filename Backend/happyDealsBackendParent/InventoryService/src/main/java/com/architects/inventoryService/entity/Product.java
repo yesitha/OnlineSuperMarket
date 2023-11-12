@@ -21,6 +21,10 @@ public class Product {
     private String productDescription;
     private BigDecimal productUnitPrice;
     private BigDecimal productQuantityAvailable;
-    private String productImage;
     private BigDecimal productDiscount;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_ProductCategory_Id") // This should match the name in ProductCategory entity
+    private ProductCategory productCategory;
+
 }

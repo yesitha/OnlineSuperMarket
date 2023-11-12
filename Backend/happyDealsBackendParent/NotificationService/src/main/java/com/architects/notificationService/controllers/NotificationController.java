@@ -22,18 +22,18 @@ public class NotificationController {
         this.notificationService = notificationService;
     }
 
-
     @GetMapping("/send/{userPreference}/{message}/{receiver}/{Subject}")
-    public void sendNotification(@PathVariable String userPreference, @PathVariable String message ,@PathVariable String receiver, @PathVariable String subject) {
+    public void sendNotification(@PathVariable String userPreference, @PathVariable String message, @PathVariable String receiver, @PathVariable String subject) {
         notificationServiceInterface notification = notificationService.createNotification(userPreference);
-        notification.sendNotification(message, receiver, subject);
+        notification.sendNotification(receiver, subject, message);
     }
 
     @GetMapping("/sendBoth/{message}/{receiver}/{Subject}")
     public void sendBothNotifications(@PathVariable String message, @PathVariable String receiver, @PathVariable String subject) {
         List<notificationServiceInterface> notifications = notificationService.createBothNotifications();
         for (notificationServiceInterface notification : notifications) {
-            notification.sendNotification(message, receiver, subject);
+            notification.sendNotification(receiver, subject, message);
         }
     }
 }
+
