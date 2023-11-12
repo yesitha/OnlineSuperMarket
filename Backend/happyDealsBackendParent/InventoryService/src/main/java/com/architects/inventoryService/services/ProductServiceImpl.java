@@ -85,4 +85,19 @@ public class ProductServiceImpl implements ProductService{
         return productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
     }
-}
+
+    public List<ResponseProductDto> getAllAvailableProducts() {
+        return productRepository.findAll().stream()
+                .filter(p -> p.getProductQuantityAvailable().compareTo(BigDecimal.ZERO) > 0)
+                .map(p -> new ResponseProductDto(
+                        p.getProductId(),
+                        p.getProductName(),
+                        p.getProductDescription(),
+                        p.getProductUnitPrice(),
+                        p.getProductQuantityAvailable(),
+                        p.getProductImage(),
+                        p.getProductDiscount()
+                ))
+                .collect(Collectors.toList());
+
+}}

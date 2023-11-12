@@ -23,6 +23,8 @@ public interface ProductService {
     // Retrieve all Products
     public List<ResponseProductDto> getAllProducts();
 
+    public List<ResponseProductDto> getAllAvailableProducts();
+
 
     public Product getProductById(Long productId);
 
@@ -30,6 +32,15 @@ public interface ProductService {
 //        return productRepository.findById(productId)
 //                .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
 //    }
+
+
+
+
+//    public Product getProductById(Long productId) {
+//        return productRepository.findById(productId)
+//                .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
+//    }
+
 
 //    public ProductDetailsDTO getProductDetailsById(Long productId) {
 //        Product product = productRepository.findById(productId)
@@ -44,6 +55,6 @@ public interface ProductService {
 //                .build();
 //    }
 
-    
+
 
 }
