@@ -16,4 +16,7 @@ public interface OrderService {
     public OrderResponse getOrder(String orderNumber);
     public OrdersResponse getAllOrders();
     public OrderResponse updateStatusAdmin(String orderNumber);
+
+    //Deliverer
+    public OrderResponse updateStatusDeliverer(String orderNumber, String status, Long deliveryPersonId);
 }

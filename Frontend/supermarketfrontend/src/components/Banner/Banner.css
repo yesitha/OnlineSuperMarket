@@ -7,10 +7,11 @@
 .banner .content {
   text-align: center;
   width: 60rem;
+ 
 }
 .banner .content h3 {
   font-size: 3rem;
-  color: var(--black);
+  color: white;
 }
 .banner .content span {
   color: var(--orange);
@@ -18,7 +19,7 @@
 .banner .content p {
   padding: 2rem 0;
   font-size: 1.7rem;
-  color: var(--light-color);
+  color: black;
 }
 .banner .content button:hover {
   background: var(--orange);

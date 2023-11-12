@@ -6,7 +6,9 @@ import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore from 'swiper/core';
 import { Autoplay } from 'swiper/modules';
-// import 'swiper/swiper.min.css';
+//import 'swiper/swiper.min.css';
+import 'swiper/css';
+
 
 
 export default function Products() {
@@ -23,16 +25,17 @@ export default function Products() {
           <Swiper
             loop
             spaceBetween={20}
-            autoplay={{ delay: 7500, disableOnInteraction: false }}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
             slidesPerView={1}
             pagination={{ clickable: true }}
+            speed={500}
             centeredSlides
             breakpoints={{
               0: {
                 slidesPerView: 1,
               },
               768: {
-                slidesPerView: 2,
+                slidesPerView: 1,
               },
               1024: { slidesPerView: 3 },
             }}
@@ -74,7 +77,7 @@ export default function Products() {
             </SwiperSlide>
             <SwiperSlide>
               <div className="box">
-                <img src="image/meat.png" alt="" />
+                <img src="image/chicken.png" alt="" />
                 <h3>fresh Meat</h3>
                 <div className="price">Rs 1100/ -- 1400/-</div>
                 <div className="stars">
@@ -115,16 +118,17 @@ export default function Products() {
           <Swiper
             loop
             spaceBetween={20}
-            autoplay={{ delay: 7500, disableOnInteraction: false }}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
             slidesPerView={1}
             pagination={{ clickable: true }}
+            speed={500}
             centeredSlides
             breakpoints={{
               0: {
                 slidesPerView: 1,
               },
               768: {
-                slidesPerView: 2,
+                slidesPerView: 3,
               },
               1024: { slidesPerView: 3 },
             }}

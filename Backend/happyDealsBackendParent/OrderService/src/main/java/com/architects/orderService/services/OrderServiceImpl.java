@@ -3,6 +3,7 @@ package com.architects.orderService.services;
 import com.architects.orderService.Repositories.CartItemRepository;
 import com.architects.orderService.Repositories.CartRepository;
 import com.architects.orderService.Repositories.OrderRepository;
+import com.architects.orderService.dto.request.DeliveryPersonDTO;
 import com.architects.orderService.dto.request.OrderItemDTO;
 import com.architects.orderService.dto.request.OrderRequestDTO;
 import com.architects.orderService.dto.response.*;
@@ -325,6 +326,74 @@ public class OrderServiceImpl implements OrderService {
             throw new RestException(HttpStatus.FORBIDDEN, "Order is already processed");
         }
         order.setOrderStatus(OrderStatus.PROCESSED);
+        orderRepository.save(order);
+        return mapToOrderResponse(order);
+    }
+
+    public OrderResponse updateStatusDeliverer(String orderNumber, String status, Long deliveryPersonId) {
+        Order order = orderRepository.findByOrderNumber(orderNumber).orElse(null);
+        if(order == null){
+            throw new RestException(HttpStatus.NOT_FOUND, "Order not found");
+        }
+        if(order.getOrderStatus() == OrderStatus.CANCELLED){
+            throw new RestException(HttpStatus.FORBIDDEN, "Order already cancelled");
+        }
+        if(order.getOrderStatus() == OrderStatus.PLACED) {
+            throw new RestException(HttpStatus.FORBIDDEN, "Order is still processing");
+        }
+//        if(order.getDeliveryPersonId() != null && !order.getDeliveryPersonId().equals(deliveryPersonId)){
+//            throw new RestException(HttpStatus.UNAUTHORIZED, "Some other delivery person has been assigned");
+//        }
+        OrderStatus newOrderStatus;
+        if(order.getOrderStatus() == OrderStatus.PROCESSED){
+            if(status.equals("pickup")){
+                newOrderStatus = OrderStatus.PICKEDUP;
+
+                DeliveryPersonDTO delivererEntity = webClientBuilder.build()
+                        .get()
+                        .uri("http://delivery-person/api/v1/deliveryPersons/"+deliveryPersonId)
+                        .retrieve()
+                        .bodyToMono(DeliveryPersonDTO.class)
+                        .onErrorResume(e -> {
+                            if(e.getMessage().contains("404")){
+                                throw new RestException(HttpStatus.NOT_FOUND, "User not found");
+                            }
+                            else{
+                                throw new RestException(HttpStatus.INTERNAL_SERVER_ERROR, "Error connecting to user management");
+                            }
+                        })
+                        .block();
+                if(delivererEntity == null){
+                    throw new RestException(HttpStatus.NOT_FOUND, "User not found");
+                }
+                order.setDeliveryPersonEmail(delivererEntity.getDeliveryPersonEmail());
+                order.setDeliveryPersonPhoneNumber(delivererEntity.getDeliveryPersonPhoneNumber());
+                order.setDeliveryPersonName(delivererEntity.getDeliveryPersonName());
+            }
+            else{
+                throw new RestException(HttpStatus.FORBIDDEN, "Order can only be picked up");
+            }
+        }
+        else if(order.getOrderStatus() == OrderStatus.PICKEDUP){
+            if(status.equals("dispatched")){
+                newOrderStatus = OrderStatus.DISPATCHED;
+            }
+            else{
+                throw new RestException(HttpStatus.FORBIDDEN, "Order can only be dispatched");
+            }
+        }
+        else if(order.getOrderStatus() == OrderStatus.DISPATCHED){
+            if(status.equals("delivered")){
+                newOrderStatus = OrderStatus.DELIVERED;
+            }
+            else{
+                throw new RestException(HttpStatus.FORBIDDEN, "Order can only be delivered");
+            }
+        }
+        else{
+            throw new RestException(HttpStatus.FORBIDDEN, "Invalid Status");
+        }
+        order.setOrderStatus(newOrderStatus);
         orderRepository.save(order);
         return mapToOrderResponse(order);
     }
