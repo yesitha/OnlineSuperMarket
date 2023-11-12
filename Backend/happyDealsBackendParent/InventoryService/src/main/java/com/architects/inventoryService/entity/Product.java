@@ -26,4 +26,5 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "fk_ProductCategory_Id") // This should match the name in ProductCategory entity
     private ProductCategory productCategory;
+
 }
