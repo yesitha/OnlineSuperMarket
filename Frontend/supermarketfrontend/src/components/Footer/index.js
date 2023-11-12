@@ -22,7 +22,7 @@ export default function Footer() {
         <div className="box">
           <FontAwesomeIcon icon={['fas', 'faUser']} />
           <h3>
-            groco
+            HappyDeals
             <i>
               <FontAwesomeIcon icon={faShoppingBasket} />
             </i>
@@ -129,15 +129,6 @@ export default function Footer() {
           </button>
           <img src="image/payment.png" alt="" />
         </div>
-      </div>
-      <div className="credits">
-        <p>
-          Created By
-          {' '}
-          <span>Mr. Web Designer</span>
-          {' '}
-          | All Rights Reserved
-        </p>
       </div>
     </footer>
   );
