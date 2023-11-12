@@ -15,7 +15,7 @@ public class RequestProductDto {
     private String productName;
     private String productDescription;
     private BigDecimal productUnitPrice;
-    private String productQuantityAvailable;
+    private BigDecimal productQuantityAvailable= BigDecimal.ZERO; // Default value;
     private String productImage;
     private BigDecimal productDiscount;
 }
