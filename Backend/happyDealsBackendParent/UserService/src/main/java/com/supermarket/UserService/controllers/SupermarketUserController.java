@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/supermarket")
+@RequestMapping("/api/v1/users")
 public class SupermarketUserController {
 
     private final Keycloak keycloak;
@@ -17,7 +17,7 @@ public class SupermarketUserController {
         this.keycloak = keycloak;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/all")
     public List<UserRepresentation> getAllUsers() {
         return keycloak.realm("Supermarket").users().list();
     }

@@ -1,11 +1,10 @@
 package com.architects.orderService.controllers;
 
 import com.architects.orderService.services.OrderServiceImpl;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/orders")
@@ -20,10 +19,16 @@ public class OrderController {
     }
 
     @PutMapping("/assign-delivery-person-to-order/{orderId}/{deliveryPersonId}")
-    public void assignDeliveryPersonToOrder(@PathVariable Long orderId, @PathVariable Long deliveryPersonId) {
-        System.out.println(deliveryPersonId);
-        System.out.println("Hello");
+    @ResponseStatus(HttpStatus.ACCEPTED)
+//    @CircuitBreaker(name = "delivery", fallbackMethod = "assignDeliveryPersonToOrderFallback")
+    public String assignDeliveryPersonToOrder(@PathVariable Long orderId, @PathVariable Long deliveryPersonId) {
+
         orderService.assignDeliveryPersonToOrder(orderId, deliveryPersonId);
+        return "Delivery Person Assigned to Order Successfully";
 
     }
+
+//    public String assignDeliveryPersonToOrderFallback(Long orderId, Long deliveryPersonId,RuntimeException e) {
+//        return "Delivery Person Assigned to Order Failed !!! Please try again later";
+//    }
 }
