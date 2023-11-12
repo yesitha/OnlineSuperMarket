@@ -13,21 +13,21 @@ export default function Features() {
         </h1>
         <div className="box-container">
           <div className="box">
-            <img src="image/feature-img-1.png" alt="" />
+            <img src="image/fresh-and-organic.png" alt="" />
             <h3>fresh and organic</h3>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit, quis!</p>
+            <p>Savor the freshest and finest organic produce, handpicked just for you!</p>
             <a href="/" className="btn">read more</a>
           </div>
           <div className="box">
-            <img src="image/feature-img-2.png" alt="" />
-            <h3>free delivery</h3>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit, quis!</p>
+            <img src="image/Tracking-Order.png" alt="" />
+            <h3>Tracking Order</h3>
+            <p>Track your order with ease and anticipation as your selected items make their way to your doorstep!</p>
             <a href="/" className="btn">read more</a>
           </div>
           <div className="box">
-            <img src="image/feature-img-3.png" alt="" />
+            <img src="image/easy-payment.png" alt="" />
             <h3>easy payment</h3>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit, quis!</p>
+            <p>Enjoy stress-free payments for your selected goodies with our easy and secure payment options!</p>
             <a href="/" className="btn">read more</a>
           </div>
         </div>
