@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -34,7 +35,8 @@ public class ProductServiceImpl implements ProductService{
                 product.getProductUnitPrice(),
                 product.getProductQuantityAvailable(),
                 product.getProductImage(),
-                product.getProductDiscount()
+                product.getProductDiscount(),
+                product.getProductCategoryId()
 
         );
         productRepository.save(p);
@@ -74,6 +76,9 @@ public class ProductServiceImpl implements ProductService{
                 ))
                 .collect(Collectors.toList());
     }
+
+    
+
 
     // Retrieve Product by productId
     public Product getProductById(Long productId) {

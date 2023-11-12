@@ -17,9 +17,9 @@ public class ProductCategory {
     private Long productCategoryId;
     private String productCategoryName;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_ProductCategory_Id", referencedColumnName = "productCategoryId")
-    private List<Product> Product;
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "fk_ProductCategory_Id", referencedColumnName = "productCategoryId")
+//    private List<Product> Product;
 
     public ProductCategory(Long productCategoryId, String productCategoryName) {
         this.productCategoryId = productCategoryId;
