@@ -19,5 +19,5 @@ public class RequestProductDto {
     private BigDecimal productUnitPrice;
     private BigDecimal productQuantityAvailable= BigDecimal.ZERO; // Default value;
     private BigDecimal productDiscount;
-    private ProductCategory productCategoryId;
+    private Long productCategoryId;
 }
