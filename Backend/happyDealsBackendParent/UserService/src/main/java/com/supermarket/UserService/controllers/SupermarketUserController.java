@@ -21,4 +21,6 @@ public class SupermarketUserController {
     public List<UserRepresentation> getAllUsers() {
         return keycloak.realm("Supermarket").users().list();
     }
+
+
 }
