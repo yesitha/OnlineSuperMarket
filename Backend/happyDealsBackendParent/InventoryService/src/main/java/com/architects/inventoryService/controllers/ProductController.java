@@ -1,17 +1,18 @@
 package com.architects.inventoryService.controllers;
 
+import com.architects.inventoryService.dto.response.OrderDTO;
 import com.architects.inventoryService.dto.request.RequestProductDto;
+import com.architects.inventoryService.dto.response.OrderResponseDTO;
 import com.architects.inventoryService.dto.response.ResponseProductDto;
 
 import com.architects.inventoryService.dto.response.ProductDetailsDTO;
 
-import com.architects.inventoryService.entity.Product;
-import com.architects.inventoryService.services.InventoryKeeperServiceImpl;
 import com.architects.inventoryService.services.ProductServiceImpl;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.architects.inventoryService.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,6 +72,23 @@ public class ProductController {
     @GetMapping("/availableProducts")
     public List<ResponseProductDto> getAllAvailableProducts() {
         return productService.getAllAvailableProducts();
-
     }
+
+    @PutMapping("/place-order")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<OrderResponseDTO> placeOrder(@RequestBody List<OrderDTO> products){
+        OrderResponseDTO response = productService.placeOrder(products);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/cancel-order")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> cancelOrder(@RequestBody List<OrderDTO> products) {
+        boolean result = productService.cancelOrder(products);
+        if (!result) {
+            return new ResponseEntity<>("Failed to cancel order", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>("Success", HttpStatus.OK);
+    }
+
 }
