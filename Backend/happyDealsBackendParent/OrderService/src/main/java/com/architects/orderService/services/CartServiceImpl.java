@@ -222,12 +222,11 @@ public class CartServiceImpl implements CartService{
                 }
 
                 // Calculate and return the updated total quantity of the product in the cart
-                BigDecimal updatedTotalQuantity = cart.getCartItems().stream()
+
+                return cart.getCartItems().stream()
                         .filter(item -> item.getProductId().equals(productId))
                         .map(CartItem::getQuantityAdded)
                         .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-                return updatedTotalQuantity;
             } else {
                 // If the product does not exist, throw an exception
                 throw new EntityNotFoundException("Product with ID " + productId + " does not exist in cart with ID " + cart.getCartId());

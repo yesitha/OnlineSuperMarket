@@ -35,19 +35,19 @@ public class OrderController {
         return orderService.placeOrder(customerId);
     }
 
-    @GetMapping
+    @GetMapping("/get-orders")
     @ResponseStatus(HttpStatus.OK)
     public OrdersResponse getOrders(@RequestHeader("customerId") Long customerId){
         return orderService.getAllByCustomerId(customerId);
     }
-    @GetMapping("/{orderNumber}")
+    @GetMapping("/get-order/{orderNumber}")
     @ResponseStatus(HttpStatus.OK)
     public OrderResponse getOrder(@PathVariable String orderNumber,@RequestHeader("customerId") Long customerId){
         return orderService.getOrder(orderNumber, customerId);
     }
 
 
-    @DeleteMapping("/{orderNumber}")
+    @DeleteMapping("/cancel-order/{orderNumber}")
     @ResponseStatus(HttpStatus.OK)
     public OrderResponse cancelOrder(@PathVariable String orderNumber, @RequestHeader("customerId") Long customerId){
         return orderService.cancelOrder(orderNumber, customerId);
