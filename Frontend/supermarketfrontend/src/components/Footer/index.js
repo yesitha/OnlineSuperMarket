@@ -19,7 +19,7 @@ export default function Footer() {
   return (
     <footer className="footer" id="footer">
       <div className="box-container">
-        <div className="box">
+      <div className="box">
           <FontAwesomeIcon icon={['fas', 'faUser']} />
           <h3>
             HappyDeals
@@ -28,8 +28,7 @@ export default function Footer() {
             </i>
           </h3>
           <p>
-            Lorem, Ipsum Dolor Sit Amet Consectetur Adipisicing Elit. Natus,
-            Laudantium?
+            Stay connected with us!
           </p>
           <div className="share">
             <a href="/">
@@ -53,36 +52,38 @@ export default function Footer() {
               </i>
             </a>
           </div>
+
         </div>
+
         <div className="box">
-          <h3>contact info</h3>
+          <h3>contact us</h3>
           <a href="/" className="links">
             <i>
               <FontAwesomeIcon icon={faPhone} />
             </i>
-            +123 456 7890
+            +113 588 9765
           </a>
           <a href="/" className="links">
             <i>
               <FontAwesomeIcon icon={faPhone} />
             </i>
-            +111 222 3333
+            +118 246 3459
           </a>
           <a href="/" className="links" id="emailLink">
             <i>
               <FontAwesomeIcon icon={faEnvelope} />
             </i>
-            name@email.com
+            happydeals@gmail.com
           </a>
           <a href="/" className="links">
             <i>
               <FontAwesomeIcon icon={faMapMarkerAlt} />
             </i>
-            pernambuco, brazil
+            Colombo, Sri Lanka
           </a>
         </div>
         <div className="box">
-          <h3>quick info</h3>
+          <h3>headlines</h3>
           <a href="#home" className="links">
             <i>
               <FontAwesomeIcon icon={faArrowRight} />
@@ -101,34 +102,19 @@ export default function Footer() {
             </i>
             products
           </a>
-          <a href="#categories" className="links">
-            <i>
-              <FontAwesomeIcon icon={faArrowRight} />
-            </i>
-            categories
-          </a>
-          <a href="#reviews" className="links">
-            <i>
-              <FontAwesomeIcon icon={faArrowRight} />
-            </i>
-            reviews
-          </a>
-          <a href="#blogs" className="links">
-            <i>
-              <FontAwesomeIcon icon={faArrowRight} />
-            </i>
-            blogs
-          </a>
+    
+        
         </div>
         <div className="box">
-          <h3>newsletter</h3>
-          <p>Subscribe For Latest Updates</p>
+          <h3>get our updates</h3>
+          <p>Enter your email to subscribe to our newsletter</p>
           <input type="text" placeholder="your email" />
           <button type="button" className="btn">
             subscribe
           </button>
           <img src="image/payment.png" alt="" />
         </div>
+       
       </div>
     </footer>
   );

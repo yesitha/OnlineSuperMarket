@@ -10,9 +10,8 @@ export default function Navbar(props) {
       <a href="#home">home</a>
       <a href="#features">features</a>
       <a href="#products">products</a>
-      <a href="#categories">categories</a>
-      <a href="#reviews">review</a>
-      <a href="#blogs">blogs</a>
+      <a href="#footer">contact us</a>
+      <a href="#footer">get our updates</a>
     </nav>
   );
 }

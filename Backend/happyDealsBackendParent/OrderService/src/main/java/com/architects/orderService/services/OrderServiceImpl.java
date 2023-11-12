@@ -1,6 +1,7 @@
 package com.architects.orderService.services;
 
 import com.architects.orderService.Repositories.OrderRepository;
+import com.architects.orderService.entity.Cart;
 import com.architects.orderService.entity.Order;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,5 @@ public class OrderServiceImpl implements OrderService {
 
         }
     }
-
 
 }
