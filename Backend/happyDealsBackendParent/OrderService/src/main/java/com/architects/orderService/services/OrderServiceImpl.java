@@ -29,48 +29,30 @@ public class OrderServiceImpl implements OrderService {
     public void assignDeliveryPersonToOrder(Long orderId, Long deliveryPersonId) {
 
 
-        UriTemplate uriTemplate = new UriTemplate("http://delivery-service/api/v1/deliveryPersons/update-delivery-person-status/{deliveryPersonId}/{status}");
-        URI uri = uriTemplate.expand(deliveryPersonId, false);
-
-        try {
-            webClientBuilder.build().put()
-                    .uri(uri)
-                    .retrieve()
-                    .bodyToMono(Void.class)
-                    .block();
-            kafkaTemplate.send("deliveryPersonAssigned","deliveryPersonId"+deliveryPersonId+"orderId"+orderId);
-//            kafkaTemplate.send("deliveryPersonAssigned", new deliveryPersonAssignedEvent(deliveryPersonId, orderId));
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new EntityNotFoundException("Order not found with ID: " + orderId));
+        if (order != null) {
+            order.setDeliverPersonId(deliveryPersonId);
+            orderRepository.save(order);
 
 
-        } catch (Exception e) {
-            System.out.println(e);
+            UriTemplate uriTemplate = new UriTemplate("http://delivery-service/api/v1/deliveryPersons/update-delivery-person-status/{deliveryPersonId}/{status}");
+            URI uri = uriTemplate.expand(deliveryPersonId, false);
+
+            try {
+                webClientBuilder.build().put()
+                        .uri(uri)
+                        .retrieve()
+                        .bodyToMono(Void.class)
+                        .block();
+                 kafkaTemplate.send("deliveryPersonAssigned","deliveryPersonId"+deliveryPersonId+"orderId"+orderId);
+
+
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+
         }
-//
-//
-//        Order order = orderRepository.findById(orderId).orElseThrow(() -> new EntityNotFoundException("Order not found with ID: " + orderId));
-//        if (order != null) {
-//            order.setDeliverPersonId(deliveryPersonId);
-//            orderRepository.save(order);
-//
-//
-//            UriTemplate uriTemplate = new UriTemplate("http://delivery-service/api/v1/deliveryPersons/update-delivery-person-status/{deliveryPersonId}/{status}");
-//            URI uri = uriTemplate.expand(deliveryPersonId, false);
-//
-//            try {
-//                webClientBuilder.build().put()
-//                        .uri(uri)
-//                        .retrieve()
-//                        .bodyToMono(Void.class)
-//                        .block();
-//                kafkaTemplate.send("deliveryPersonAssigned", new deliveryPersonAssignedEvent(deliveryPersonId, orderId));
-//
-//
-//            } catch (Exception e) {
-//                System.out.println(e);
-//            }
-//
-//
-//        }
     }
 
 

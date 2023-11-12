@@ -29,13 +29,13 @@ public class NotificationController {
 
     }
 
-//    @PostMapping("/sendBoth")
-//    public void sendBothNotifications(@RequestBody NotificationRequestDTOBoth notificationRequestDTO) {
-//        notificationServiceInterface Emailnotification = notificationService.createNotification("email");
-//        Emailnotification.sendNotification(notificationRequestDTO.getMessage(), notificationRequestDTO.getReceiverEmail(), notificationRequestDTO.getSubject());
-//        notificationServiceInterface SMSnotification = notificationService.createNotification("sms");
-//        SMSnotification.sendNotification(notificationRequestDTO.getMessage(), notificationRequestDTO.getReceiverPhoneNumber(), notificationRequestDTO.getSubject());
-//        }
+    @PostMapping("/sendBoth")
+    public void sendBothNotifications(@RequestBody NotificationRequestDTOBoth notificationRequestDTO) {
+        notificationServiceInterface Emailnotification = notificationService.createNotification("email");
+        Emailnotification.sendNotification(notificationRequestDTO.getMessage(), notificationRequestDTO.getReceiverEmail(), notificationRequestDTO.getSubject());
+        notificationServiceInterface SMSnotification = notificationService.createNotification("sms");
+        SMSnotification.sendNotification(notificationRequestDTO.getMessage(), notificationRequestDTO.getReceiverPhoneNumber(), notificationRequestDTO.getSubject());
+        }
 
 }
 
