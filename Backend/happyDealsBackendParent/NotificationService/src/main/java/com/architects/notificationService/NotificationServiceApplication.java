@@ -22,11 +22,9 @@ public class NotificationServiceApplication {
     }
 
     @KafkaListener(topics = "deliveryPersonAssigned")
-    public void handleNotification(String message) throws JsonProcessingException {
+    public void handleNotificationDP(String message) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
-
-        // Parse the JSON string into a JsonNode
         JsonNode jsonNode = objectMapper.readTree(message);
         int deliveryPersonId = jsonNode.get("deliveryPersonId").asInt();
         int orderId = jsonNode.get("orderId").asInt();
@@ -40,6 +38,80 @@ public class NotificationServiceApplication {
 //        smsService.sendSms(deliveryPersonPhoneNumber,"You Assigned to Order"+orderId);
 
     }
+
+    @KafkaListener(topics = "orderPlaced")
+    public void OrderPlacedNotify(String message) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(message);
+        int customerId = jsonNode.get("customerId").asInt();
+        int orderNumber = jsonNode.get("orderNumber").asInt();
+        System.out.println("Sending notification to Customer & Inventory Keeper. Customer: " + customerId +"placed order :" + orderNumber);
+
+
+    }
+
+    @KafkaListener(topics = "orderCanceled")
+    public void OrderCanceledNotify(String message) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(message);
+        int customerId = jsonNode.get("customerId").asInt();
+        int orderNumber = jsonNode.get("orderNumber").asInt();
+        System.out.println("Sending notification to Customer & Inventory Keeper. Customer: " + customerId +"canceled order :" + orderNumber);
+
+
+    }
+
+    @KafkaListener(topics = "orderProcessed")
+    public void OrderProcessedNotify(String message) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(message);
+        int customerId = jsonNode.get("customerId").asInt();
+        int orderNumber = jsonNode.get("orderNumber").asInt();
+        System.out.println("Sending notification to Customer . Customer: " + customerId +",order processed :" + orderNumber);
+
+
+    }
+
+    @KafkaListener(topics = "orderPickedUp")
+    public void OrderPickedUpNotify(String message) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(message);
+        int customerId = jsonNode.get("customerId").asInt();
+        int orderNumber = jsonNode.get("orderNumber").asInt();
+        System.out.println("Sending notification to Customer . Customer: " + customerId +", Your order Picked up by delivery guy :" + orderNumber);
+
+
+    }
+
+
+
+    @KafkaListener(topics = " orderDispached")
+    public void OrderDispachedNotify(String message) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(message);
+        int customerId = jsonNode.get("customerId").asInt();
+        int orderNumber = jsonNode.get("orderNumber").asInt();
+        System.out.println("Sending notification to Customer . Customer: " + customerId +", Your order Dispached  :" + orderNumber);
+
+
+    }
+    @KafkaListener(topics = "orderDelivered")
+    public void OrderDeliveredNotify(String message) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(message);
+        int customerId = jsonNode.get("customerId").asInt();
+        int orderNumber = jsonNode.get("orderNumber").asInt();
+        System.out.println("Sending notification to Customer . Customer: " + customerId +", Your order Dispached  :" + orderNumber);
+
+
+    }
+
 }
 
 
