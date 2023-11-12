@@ -26,7 +26,7 @@ public class EmailService implements notificationServiceInterface {
     @Value("${infobip.email.sender.address}")
     private String emailSenderAddress;
 
-    public void sendEmail(String to, String subject, String body) {
+    public void sendEmail( String body,String to, String subject) {
         // Create the API client and the Email API instances.
         var apiClient = ApiClient.forApiKey(ApiKey.from(apiKey))
                 .withBaseUrl(BaseUrl.from(baseUrl))
@@ -57,6 +57,6 @@ public class EmailService implements notificationServiceInterface {
 
     @Override
     public void sendNotification(String message, String recipient, String subject) {
-        sendEmail(recipient, subject, message);
+        sendEmail(message,recipient, subject);
     }
 }
