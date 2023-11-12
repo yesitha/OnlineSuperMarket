@@ -2,6 +2,9 @@ package com.architects.inventoryService.controllers;
 
 import com.architects.inventoryService.dto.request.RequestProductDto;
 import com.architects.inventoryService.dto.response.ResponseProductDto;
+
+import com.architects.inventoryService.dto.response.ProductDetailsDTO;
+
 import com.architects.inventoryService.entity.Product;
 import com.architects.inventoryService.services.InventoryKeeperServiceImpl;
 import com.architects.inventoryService.services.ProductServiceImpl;
@@ -55,6 +58,12 @@ public class ProductController {
     @GetMapping("/{productId}")
     public Product getProductById(@PathVariable Long productId) {
         return productService.getProductById(productId);
+    }
+
+    // Retrieve productDetails by productId
+    @GetMapping("/productDetails/{productId}")
+    public ProductDetailsDTO getProductDetailsById(@PathVariable Long productId) {
+        return productService.getProductDetailsById(productId);
     }
 
 }

@@ -1,26 +1,30 @@
-package com.architects.inventoryService.entity;
+package com.architects.orderService.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class Product {
+@Builder
+public class CartItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long cartItemId;
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
     private Long productId;
+    private BigDecimal quantityAdded;
     private String productName;
     private String productDescription;
     private BigDecimal productUnitPrice;
-    private BigDecimal productQuantityAvailable;
     private String productImage;
     private BigDecimal productDiscount;
 }

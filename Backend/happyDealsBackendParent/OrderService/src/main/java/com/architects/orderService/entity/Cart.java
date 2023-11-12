@@ -3,6 +3,9 @@ package com.architects.orderService.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -12,12 +15,12 @@ import lombok.*;
 
 public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartId;
-
     private Long customerId;
-    private Long productId;
-    private int quantityAdded;
+
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    private List<CartItem> cartItems;
 
     @OneToOne(mappedBy = "cart")
     private Order order;
