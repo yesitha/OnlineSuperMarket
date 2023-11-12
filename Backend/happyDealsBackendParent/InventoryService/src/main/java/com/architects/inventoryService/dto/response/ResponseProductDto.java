@@ -17,6 +17,5 @@ public class ResponseProductDto {
     private String productDescription;
     private BigDecimal productUnitPrice;
     private BigDecimal productQuantityAvailable;
-    private String productImage;
     private BigDecimal productDiscount;
 }

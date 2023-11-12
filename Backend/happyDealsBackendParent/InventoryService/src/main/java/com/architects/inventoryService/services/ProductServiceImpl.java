@@ -2,16 +2,17 @@ package com.architects.inventoryService.services;
 
 import com.architects.inventoryService.Repositories.ProductRepository;
 import com.architects.inventoryService.dto.request.RequestProductDto;
-import com.architects.inventoryService.dto.response.ResponseInventoryKeeperDto;
 import com.architects.inventoryService.dto.response.ResponseProductDto;
-import com.architects.inventoryService.entity.InventoryKeeper;
+import com.architects.inventoryService.dto.response.ProductDetailsDTO;
 import com.architects.inventoryService.entity.Product;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -34,7 +35,6 @@ public class ProductServiceImpl implements ProductService{
                 product.getProductDescription(),
                 product.getProductUnitPrice(),
                 product.getProductQuantityAvailable(),
-                product.getProductImage(),
                 product.getProductDiscount(),
                 product.getProductCategoryId()
 
@@ -51,7 +51,6 @@ public class ProductServiceImpl implements ProductService{
         existingProduct.setProductDescription(updatedProduct.getProductDescription());
         existingProduct.setProductUnitPrice(updatedProduct.getProductUnitPrice());
         existingProduct.setProductQuantityAvailable(updatedProduct.getProductQuantityAvailable());
-        existingProduct.setProductImage(updatedProduct.getProductImage());
         existingProduct.setProductDiscount(updatedProduct.getProductDiscount());
 
         productRepository.save(existingProduct);
@@ -71,7 +70,6 @@ public class ProductServiceImpl implements ProductService{
                         p.getProductDescription(),
                         p.getProductUnitPrice(),
                         p.getProductQuantityAvailable(),
-                        p.getProductImage(),
                         p.getProductDiscount()
                 ))
                 .collect(Collectors.toList());
@@ -81,9 +79,20 @@ public class ProductServiceImpl implements ProductService{
 
 
     // Retrieve Product by productId
-    public Product getProductById(Long productId) {
-        return productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
+    public ResponseProductDto getProductById(Long productId) {
+        Optional<Product> productOptional = productRepository.findById(productId);
+        if (productOptional.isPresent()) {
+            return new ResponseProductDto(
+                    productOptional.get().getProductId(),
+                    productOptional.get().getProductName(),
+                    productOptional.get().getProductDescription(),
+                    productOptional.get().getProductUnitPrice(),
+                    productOptional.get().getProductQuantityAvailable(),
+                    productOptional.get().getProductDiscount()
+            );
+        } else {
+            throw new EntityNotFoundException("Product not found with ID: " + productId);
+        }
     }
 
     public List<ResponseProductDto> getAllAvailableProducts() {
@@ -95,9 +104,21 @@ public class ProductServiceImpl implements ProductService{
                         p.getProductDescription(),
                         p.getProductUnitPrice(),
                         p.getProductQuantityAvailable(),
-                        p.getProductImage(),
                         p.getProductDiscount()
                 ))
                 .collect(Collectors.toList());
 
-}}
+}
+    public ProductDetailsDTO getProductDetailsById(Long productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
+        return ProductDetailsDTO.builder()
+                .productName(product.getProductName())
+                .productDescription(product.getProductDescription())
+                .productUnitPrice(product.getProductUnitPrice())
+                .productQuantityAvailable(product.getProductQuantityAvailable())
+                .productDiscount(product.getProductDiscount())
+                .build();
+    }
+
+}
