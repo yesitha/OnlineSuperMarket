@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -80,4 +81,19 @@ public class ProductServiceImpl implements ProductService{
         return productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
     }
-}
+
+    public List<ResponseProductDto> getAllAvailableProducts() {
+        return productRepository.findAll().stream()
+                .filter(p -> p.getProductQuantityAvailable().compareTo(BigDecimal.ZERO) > 0)
+                .map(p -> new ResponseProductDto(
+                        p.getProductId(),
+                        p.getProductName(),
+                        p.getProductDescription(),
+                        p.getProductUnitPrice(),
+                        p.getProductQuantityAvailable(),
+                        p.getProductImage(),
+                        p.getProductDiscount()
+                ))
+                .collect(Collectors.toList());
+
+}}

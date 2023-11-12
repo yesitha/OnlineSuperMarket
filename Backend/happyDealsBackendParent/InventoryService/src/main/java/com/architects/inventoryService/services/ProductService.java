@@ -23,25 +23,30 @@ public interface ProductService {
     // Retrieve all Products
     public List<ResponseProductDto> getAllProducts();
 
+    public List<ResponseProductDto> getAllAvailableProducts();
 
-//     public Product getProductById(Long productId);
 
-    public Product getProductById(Long productId) {
-        return productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
-    }
 
-    public ProductDetailsDTO getProductDetailsById(Long productId) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
-        return ProductDetailsDTO.builder()
-                .productName(product.getProductName())
-                .productDescription(product.getProductDescription())
-                .productUnitPrice(product.getProductUnitPrice())
-                .productQuantityAvailable(product.getProductQuantityAvailable())
-                .productImage(product.getProductImage())
-                .productDiscount(product.getProductDiscount())
-                .build();
-    }
+     public Product getProductById(Long productId);
+
+//    public Product getProductById(Long productId) {
+//        return productRepository.findById(productId)
+//                .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
+//    }
+
+//    public ProductDetailsDTO getProductDetailsById(Long productId) {
+//        Product product = productRepository.findById(productId)
+//                .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
+//        return ProductDetailsDTO.builder()
+//                .productName(product.getProductName())
+//                .productDescription(product.getProductDescription())
+//                .productUnitPrice(product.getProductUnitPrice())
+//                .productQuantityAvailable(product.getProductQuantityAvailable())
+//                .productImage(product.getProductImage())
+//                .productDiscount(product.getProductDiscount())
+//                .build();
+//    }
+
+
 
 }
