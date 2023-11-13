@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -40,6 +41,12 @@ public class ProductController {
     public String updateProduct(@PathVariable Long productId, @RequestBody RequestProductDto updatedProduct) {
         productService.updateProduct(productId, updatedProduct);
         return "Product updated successfully!";
+    }
+
+    @PutMapping("/{productId}/{updatedQuantity}")
+    public String updateProductQuantity(@PathVariable Long productId,@PathVariable BigDecimal updatedQuantity) {
+        productService.updateProductQuantity(productId, updatedQuantity);
+        return "Product quantity updated successfully!";
     }
 
     // Delete Product by productId
@@ -67,6 +74,16 @@ public class ProductController {
     @GetMapping("/productDetails/{productId}")
     public ProductDetailsDTO getProductDetailsById(@PathVariable Long productId) {
         return productService.getProductDetailsById(productId);
+    }
+
+    @GetMapping("productname/{productName}")
+    public List<ResponseProductDto> getProductByName(@PathVariable String productName) {
+        return productService.getProductByName(productName);
+    }
+
+    @GetMapping("category/{fk_ProductCategory_Id}")
+    public List<ResponseProductDto> getProductByCategoryId(@PathVariable Long fk_ProductCategory_Id) {
+        return productService.getProductByCategoryId(fk_ProductCategory_Id);
     }
 
     @GetMapping("/availableProducts")

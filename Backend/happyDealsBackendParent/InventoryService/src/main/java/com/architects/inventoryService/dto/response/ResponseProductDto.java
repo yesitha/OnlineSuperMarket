@@ -18,5 +18,5 @@ public class ResponseProductDto {
     private BigDecimal productUnitPrice;
     private BigDecimal productQuantityAvailable;
     private BigDecimal productDiscount;
-//    private Long productCategoryId;
+    private Long productCategoryId;
 }
