@@ -1,6 +1,7 @@
 package com.architects.notificationService.services;
 
 
+
 import com.infobip.ApiClient;
 import com.infobip.ApiException;
 import com.infobip.ApiKey;
@@ -18,7 +19,7 @@ import java.util.Collections;
 @Service
 public class SmsService implements notificationServiceInterface {
 
-    private final WebClient.Builder webClientBuilder;
+
 
     @Value("${infobip.api.key}")  //API key
     private String apiKey;
@@ -29,9 +30,7 @@ public class SmsService implements notificationServiceInterface {
     @Value("${infobip.recipient.number}")  //  recipient phone number
     private String recipientNumber;
 
-    public SmsService(WebClient.Builder webClientBuilder) {
-        this.webClientBuilder = webClientBuilder;
-    }
+
     @Override
     public void sendNotification(String message, String recipient, String subject) {
         sendSms(recipient, message);

@@ -33,7 +33,5 @@ public class DemoController {
         return "Test to User role Management- Inventory Keeper";
     }
 
-
-
 }
 
