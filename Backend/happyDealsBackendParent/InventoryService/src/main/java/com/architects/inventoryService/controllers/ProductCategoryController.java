@@ -57,6 +57,10 @@ public class ProductCategoryController {
         return productCategoryService.getProductCategoryById(productCategoryId);
     }
 
+    @GetMapping("/categoryName/{productCategoryName}")
+    public ResponseProductCategoryDto getProductIdByName(@PathVariable String productCategoryName) {
+        return productCategoryService.getProductIdByName(productCategoryName);
+    }
 
 
 

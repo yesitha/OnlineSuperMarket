@@ -78,4 +78,19 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
             throw new EntityNotFoundException("ProductCategory not found with ID: " + productCategoryId);
         }
     }
+
+    // Retrieve product category Id by Category Name
+    public ResponseProductCategoryDto getProductIdByName(String productCategoryName) {
+        Optional<ProductCategory> productCategoryOptional = productCategoryRepository.findByProductCategoryName(productCategoryName);
+        if (productCategoryOptional.isPresent()) {
+            return new ResponseProductCategoryDto(
+                    productCategoryOptional.get().getProductCategoryId(),
+                    productCategoryOptional.get().getProductCategoryName()
+            );
+        } else {
+            throw new EntityNotFoundException("ProductCategoryId not found with Product Category Name: " + productCategoryName);
+        }
+    }
+
+
 }

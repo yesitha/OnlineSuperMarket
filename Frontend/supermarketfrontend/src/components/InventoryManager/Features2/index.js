@@ -7,9 +7,7 @@ export default function Features() {
     <section className="features" id="features">
       <div className="content">
         <h1 className="heading">
-        Delivery
-       {' '}
-       <span>  Persons</span>
+       <span> Delivery Persons</span>
         </h1>
         <div className="box-container">
           <div className="box">
