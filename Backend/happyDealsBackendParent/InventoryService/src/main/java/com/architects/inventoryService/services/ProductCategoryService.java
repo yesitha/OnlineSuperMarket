@@ -22,4 +22,6 @@ public interface ProductCategoryService {
     // Retrieve productCategory by productCategoryId
     public ResponseProductCategoryDto getProductCategoryById(Long productCategoryId);
 
+    public ResponseProductCategoryDto getProductIdByName(String productCategoryName);
+
 }
