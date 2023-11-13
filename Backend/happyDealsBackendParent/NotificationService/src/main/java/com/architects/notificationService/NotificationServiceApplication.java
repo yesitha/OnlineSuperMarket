@@ -21,7 +21,7 @@ public class NotificationServiceApplication {
         SpringApplication.run(NotificationServiceApplication.class, args);
     }
 
-    @KafkaListener(topics = "deliveryPersonAssigned")
+    @KafkaListener(topics = "deliveryPersonAssigned", groupId = "notification")
     public void handleNotificationDP(String message) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -39,7 +39,7 @@ public class NotificationServiceApplication {
 
     }
 
-    @KafkaListener(topics = "orderPlaced")
+    @KafkaListener(topics = "orderPlaced", groupId = "notification")
     public void OrderPlacedNotify(String message) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -51,7 +51,7 @@ public class NotificationServiceApplication {
 
     }
 
-    @KafkaListener(topics = "orderCanceled")
+    @KafkaListener(topics = "orderCanceled", groupId = "notification")
     public void OrderCanceledNotify(String message) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -63,7 +63,7 @@ public class NotificationServiceApplication {
 
     }
 
-    @KafkaListener(topics = "orderProcessed")
+    @KafkaListener(topics = "orderProcessed", groupId = "notification")
     public void OrderProcessedNotify(String message) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -75,7 +75,7 @@ public class NotificationServiceApplication {
 
     }
 
-    @KafkaListener(topics = "orderPickedUp")
+    @KafkaListener(topics = "orderPickedUp", groupId = "notification")
     public void OrderPickedUpNotify(String message) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -89,7 +89,7 @@ public class NotificationServiceApplication {
 
 
 
-    @KafkaListener(topics = " orderDispached")
+    @KafkaListener(topics = " orderDispached", groupId = "notification")
     public void OrderDispachedNotify(String message) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -100,7 +100,7 @@ public class NotificationServiceApplication {
 
 
     }
-    @KafkaListener(topics = "orderDelivered")
+    @KafkaListener(topics = "orderDelivered", groupId = "notification")
     public void OrderDeliveredNotify(String message) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
