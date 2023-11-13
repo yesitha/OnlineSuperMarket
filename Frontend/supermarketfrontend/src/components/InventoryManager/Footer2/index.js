@@ -28,7 +28,7 @@ export default function Footer() {
             </i>
           </h3>
           <p>
-            Stay connected with us!
+            
           </p>
           <div className="share">
             <a href="/">
@@ -56,12 +56,12 @@ export default function Footer() {
         </div>
 
         <div className="box">
-          <h3>contact us</h3>
+          <h3>contact info</h3>
           <a href="/" className="links">
             <i>
               <FontAwesomeIcon icon={faPhone} />
             </i>
-            +113 588 9765
+           +113 588 9765
           </a>
           <a href="/" className="links">
             <i>
@@ -90,29 +90,28 @@ export default function Footer() {
             </i>
             home
           </a>
-          <a href="#features" className="links">
+          <a href="#delivery Person" className="links">
             <i>
               <FontAwesomeIcon icon={faArrowRight} />
             </i>
-            features
+            delivery persons
           </a>
-          <a href="#products" className="links">
+          <a href="#order" className="links">
             <i>
               <FontAwesomeIcon icon={faArrowRight} />
             </i>
-            products
+            orders
           </a>
     
         
         </div>
         <div className="box">
-          <h3>get our updates</h3>
-          <p>Enter your email to subscribe to our newsletter</p>
-          <input type="text" placeholder="your email" />
+          <h3>Share Your Suggestions</h3>
+          <p>Enter your suggestions and stay connected.</p>
+          <input type="text" placeholder="your suggestion" />
           <button type="button" className="btn">
-            subscribe
+            submit
           </button>
-          <img src="image/payment.png" alt="" />
         </div>
        
       </div>
