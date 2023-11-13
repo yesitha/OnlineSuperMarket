@@ -21,6 +21,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -73,6 +74,17 @@ public class ProductServiceImpl implements ProductService{
         productRepository.save(existingProduct);
     }
 
+    public void updateProductQuantity(Long productId, BigDecimal updatedQuantity) {
+
+        Product existingProduct = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
+
+        System.out.println("Updated Quantity: " + updatedQuantity);
+        existingProduct.setProductQuantityAvailable(updatedQuantity);
+
+        productRepository.save(existingProduct);
+    }
+
     // Delete Product by productId
     public void deleteProduct(Long productId) {
         productRepository.deleteById(productId);
@@ -87,7 +99,8 @@ public class ProductServiceImpl implements ProductService{
                         p.getProductDescription(),
                         p.getProductUnitPrice(),
                         p.getProductQuantityAvailable(),
-                        p.getProductDiscount()
+                        p.getProductDiscount(),
+                        p.getProductCategory().getProductCategoryId()
                 ))
                 .collect(Collectors.toList());
     }
@@ -105,11 +118,28 @@ public class ProductServiceImpl implements ProductService{
                     productOptional.get().getProductDescription(),
                     productOptional.get().getProductUnitPrice(),
                     productOptional.get().getProductQuantityAvailable(),
-                    productOptional.get().getProductDiscount()
+                    productOptional.get().getProductDiscount(),
+                    productOptional.get().getProductCategory().getProductCategoryId()
             );
         } else {
             throw new EntityNotFoundException("Product not found with ID: " + productId);
         }
+    }
+
+    public List<ResponseProductDto> getProductByName(String productName){
+        List<Product> products = productRepository.findByProductName(productName);
+
+        return products.stream()
+                .map(product -> new ResponseProductDto(
+                        product.getProductId(),
+                        product.getProductName(),
+                        product.getProductDescription(),
+                        product.getProductUnitPrice(),
+                        product.getProductQuantityAvailable(),
+                        product.getProductDiscount(),
+                        product.getProductCategory().getProductCategoryId()
+                ))
+                .collect(Collectors.toList());
     }
 
     public List<ResponseProductDto> getAllAvailableProducts() {
@@ -121,11 +151,31 @@ public class ProductServiceImpl implements ProductService{
                         p.getProductDescription(),
                         p.getProductUnitPrice(),
                         p.getProductQuantityAvailable(),
-                        p.getProductDiscount()
+                        p.getProductDiscount(),
+                        p.getProductCategory().getProductCategoryId()
                 ))
                 .collect(Collectors.toList());
 
 }
+    public List<ResponseProductDto> getProductByCategoryId(Long fk_ProductCategory_Id){
+        ProductCategory productCategory = productCategoryRepository.findById(fk_ProductCategory_Id)
+                .orElseThrow(() -> new EntityNotFoundException("ProductCategory not found"));
+
+        List<Product> products = productRepository.findByProductCategory(productCategory);
+
+        return products.stream()
+                .map(product -> new ResponseProductDto(
+                        product.getProductId(),
+                        product.getProductName(),
+                        product.getProductDescription(),
+                        product.getProductUnitPrice(),
+                        product.getProductQuantityAvailable(),
+                        product.getProductDiscount(),
+                        product.getProductCategory() != null ? product.getProductCategory().getProductCategoryId() : null
+                ))
+                .collect(Collectors.toList());
+    }
+
     public ProductDetailsDTO getProductDetailsById(Long productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found with id " + productId));
