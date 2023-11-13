@@ -21,6 +21,7 @@
         <module>DeliveryService</module>
         <module>NotificationService</module>
         <module>discovery-service</module>
+        <module>api-gateway</module>
     </modules>
 
     <properties>
@@ -59,6 +60,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>3.0.12</version>
         </dependency>
     </dependencies>
 

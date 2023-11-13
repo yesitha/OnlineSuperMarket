@@ -4,9 +4,11 @@ import com.architects.orderService.dto.request.OrderRequestDTO;
 import com.architects.orderService.dto.response.OrderResponse;
 import com.architects.orderService.dto.response.OrdersResponse;
 import com.architects.orderService.services.OrderServiceImpl;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -22,11 +24,16 @@ public class OrderController {
     }
 
     @PutMapping("/assign-delivery-person-to-order/{orderId}/{deliveryPersonId}")
-    public void assignDeliveryPersonToOrder(@PathVariable Long orderId, @PathVariable Long deliveryPersonId) {
-        System.out.println(deliveryPersonId);
-        System.out.println("Hello");
+    @ResponseStatus(HttpStatus.ACCEPTED)
+//    @CircuitBreaker(name = "delivery", fallbackMethod = "assignDeliveryPersonToOrderFallback")
+    public String assignDeliveryPersonToOrder(@PathVariable Long orderId, @PathVariable Long deliveryPersonId) {
+
         orderService.assignDeliveryPersonToOrder(orderId, deliveryPersonId);
+
+        return "Delivery Person Assigned to Order Successfully";
+
     }
+
 
     //Place an order
     @PostMapping("/place-order")
@@ -52,5 +59,6 @@ public class OrderController {
     public OrderResponse cancelOrder(@PathVariable String orderNumber, @RequestHeader("customerId") Long customerId){
         return orderService.cancelOrder(orderNumber, customerId);
     }
+
 
 }

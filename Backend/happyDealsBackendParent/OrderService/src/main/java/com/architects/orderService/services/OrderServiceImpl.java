@@ -9,14 +9,17 @@ import com.architects.orderService.dto.request.OrderRequestDTO;
 import com.architects.orderService.dto.response.*;
 import com.architects.orderService.entity.Cart;
 import com.architects.orderService.entity.Order;
+
+import org.springframework.kafka.core.KafkaTemplate;
+
 import com.architects.orderService.entity.OrderItem;
 import com.architects.orderService.entity.OrderStatus;
 import com.architects.orderService.exception.RestException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+
 import org.springframework.stereotype.Service;
 
 import org.springframework.web.reactive.function.client.WebClient;
@@ -38,14 +41,16 @@ public class OrderServiceImpl implements OrderService {
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
     private final WebClient.Builder webClientBuilder;
+    private final KafkaTemplate<String,String> kafkaTemplate;
 
 
-    public OrderServiceImpl(OrderRepository orderRepository, CartRepository cartRepository, CartItemRepository cartItemRepository, WebClient.Builder webClientBuilder) {
+
+    public OrderServiceImpl(OrderRepository orderRepository, CartRepository cartRepository, CartItemRepository cartItemRepository, WebClient.Builder webClientBuilder, KafkaTemplate<String, String> kafkaTemplate) {
         this.orderRepository = orderRepository;
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
-
         this.webClientBuilder = webClientBuilder;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     public void assignDeliveryPersonToOrder(Long orderId, Long deliveryPersonId) {
@@ -64,8 +69,9 @@ public class OrderServiceImpl implements OrderService {
                 webClientBuilder.build().put()
                         .uri(uri)
                         .retrieve()
-                        .bodyToMono(Void.class)  // Assuming the response is empty
+                        .bodyToMono(Void.class)
                         .block();
+                 kafkaTemplate.send("deliveryPersonAssigned","deliveryPersonId"+deliveryPersonId+"orderId"+orderId);
 
 
             } catch (Exception e) {
@@ -96,6 +102,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public OrderResponse placeOrder(Long customerId){
+
         OrderRequestDTO orderRequestDTO = getOrderRequestDTOByCustomerId(customerId);
         orderRequestDTO.setShippingAddress(" address"+customerId + " address");
 
@@ -162,7 +169,7 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderItems(orderItems);
         order.setOrderTotal(orderItems.stream().map(orderItem -> orderItem.getProductUnitPrice().multiply(orderItem.getQuantityOrdered())).reduce(BigDecimal.ZERO, BigDecimal::add));
         this.orderRepository.save(order);
-
+        kafkaTemplate.send("orderPlaced","customerId"+customerId+"orderNumber"+orderNumber);
         //clear cart using cartService
         clearProductsInCart(customerId);
 
@@ -279,6 +286,7 @@ public class OrderServiceImpl implements OrderService {
             throw new RestException(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong cancelling order");
         }
         order.setOrderStatus(OrderStatus.CANCELLED);
+        kafkaTemplate.send("orderCanceled","customerId"+customerId+"orderNumber"+orderNumber);
         orderRepository.save(order);
         return mapToOrderResponse(order);
     }
@@ -315,6 +323,7 @@ public class OrderServiceImpl implements OrderService {
             throw new RestException(HttpStatus.FORBIDDEN, "Order is already processed");
         }
         order.setOrderStatus(OrderStatus.PROCESSED);
+        kafkaTemplate.send("orderProcessed","customerId"+order.getCustomerId()+"orderNumber"+orderNumber);
         orderRepository.save(order);
         return mapToOrderResponse(order);
     }
@@ -358,6 +367,7 @@ public class OrderServiceImpl implements OrderService {
                 order.setDeliveryPersonEmail(delivererEntity.getDeliveryPersonEmail());
                 order.setDeliveryPersonPhoneNumber(delivererEntity.getDeliveryPersonPhoneNumber());
                 order.setDeliveryPersonName(delivererEntity.getDeliveryPersonName());
+                kafkaTemplate.send("orderPickedUp","customerId"+order.getCustomerId()+"orderNumber"+orderNumber);
             }
             else{
                 throw new RestException(HttpStatus.FORBIDDEN, "Order can only be picked up");
@@ -366,6 +376,7 @@ public class OrderServiceImpl implements OrderService {
         else if(order.getOrderStatus() == OrderStatus.PICKEDUP){
             if(status.equals("dispatched")){
                 newOrderStatus = OrderStatus.DISPATCHED;
+                kafkaTemplate.send("orderDispached","customerId"+order.getCustomerId()+"orderNumber"+orderNumber);
             }
             else{
                 throw new RestException(HttpStatus.FORBIDDEN, "Order can only be dispatched");
@@ -374,6 +385,7 @@ public class OrderServiceImpl implements OrderService {
         else if(order.getOrderStatus() == OrderStatus.DISPATCHED){
             if(status.equals("delivered")){
                 newOrderStatus = OrderStatus.DELIVERED;
+                kafkaTemplate.send("orderDelivered","customerId"+order.getCustomerId()+"orderNumber"+orderNumber);
             }
             else{
                 throw new RestException(HttpStatus.FORBIDDEN, "Order can only be delivered");

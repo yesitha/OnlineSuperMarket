@@ -34,7 +34,7 @@ public class TestController {
         String subject = "Test Email Subject";
         String body = "This is a test email message.";
 
-        notificationService.sendEmail(to, subject, body);
+        notificationService.sendEmail(body,to, subject );
         return "Test Email sent!";
     }
 }
