@@ -8,6 +8,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+//@AllArgsConstructor
+
 @NoArgsConstructor
 
 public class ProductCategory {
@@ -24,4 +26,6 @@ public class ProductCategory {
         this.productCategoryId = productCategoryId;
         this.productCategoryName = productCategoryName;
     }
+
+
 }
