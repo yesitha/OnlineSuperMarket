@@ -32,13 +32,9 @@ public class NotificationService {
         }
     }
 
-    public List<notificationServiceInterface> createBothNotifications() {
-        return List.of(emailService, smsService);
-    }
-
-    public void sendSms(String recipient, String message) {
-        smsService.sendSms(recipient, message);
-    }
+//    public List<notificationServiceInterface> createBothNotifications() {
+//        return List.of(emailService, smsService);
+//    }
 
     public void sendTestSms() {
         smsService.sendSms("94716667678", "hello");
@@ -46,10 +42,6 @@ public class NotificationService {
 
     @Value("${infobip.email.sender.address}")
     private String emailSenderAddress;
-
-    public String getEmailSenderAddress() {
-        return emailSenderAddress;
-    }
 
     public void sendEmail(String to, String subject, String body) {
         emailService.sendEmail(to, subject, body);

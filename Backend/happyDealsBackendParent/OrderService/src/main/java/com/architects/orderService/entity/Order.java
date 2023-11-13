@@ -28,8 +28,12 @@ public class Order {
     private OrderStatus orderStatus;
     private BigDecimal orderTotal;
     private String orderShippingAddress;
-    private BigDecimal orderShippingCost;
+    private BigDecimal orderShippingCost = BigDecimal.ZERO;
+
     private Long deliverPersonId;
+    private String deliveryPersonName;
+    private String deliveryPersonPhoneNumber;
+    private String deliveryPersonEmail;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_Cart")

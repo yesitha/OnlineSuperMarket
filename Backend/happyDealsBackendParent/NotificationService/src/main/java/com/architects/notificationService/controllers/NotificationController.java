@@ -1,13 +1,12 @@
 package com.architects.notificationService.controllers;
 
 
+import com.architects.notificationService.dto.request.NotificationRequestDTO;
+import com.architects.notificationService.dto.request.NotificationRequestDTOBoth;
 import com.architects.notificationService.services.NotificationService;
 import com.architects.notificationService.services.notificationServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,18 +21,21 @@ public class NotificationController {
         this.notificationService = notificationService;
     }
 
-    @GetMapping("/send/{userPreference}/{message}/{receiver}/{Subject}")
-    public void sendNotification(@PathVariable String userPreference, @PathVariable String message, @PathVariable String receiver, @PathVariable String subject) {
-        notificationServiceInterface notification = notificationService.createNotification(userPreference);
-        notification.sendNotification(receiver, subject, message);
+    @PostMapping("/sendSMSorEmail")
+    public void sendNotification(@RequestBody NotificationRequestDTO notificationRequestDTO) {
+        notificationServiceInterface notification = notificationService.createNotification(notificationRequestDTO.getUserPreference());
+
+        notification.sendNotification(notificationRequestDTO.getMessage(), notificationRequestDTO.getReceiver(), notificationRequestDTO.getSubject());
+
     }
 
-    @GetMapping("/sendBoth/{message}/{receiver}/{Subject}")
-    public void sendBothNotifications(@PathVariable String message, @PathVariable String receiver, @PathVariable String subject) {
-        List<notificationServiceInterface> notifications = notificationService.createBothNotifications();
-        for (notificationServiceInterface notification : notifications) {
-            notification.sendNotification(receiver, subject, message);
+    @PostMapping("/sendBoth")
+    public void sendBothNotifications(@RequestBody NotificationRequestDTOBoth notificationRequestDTO) {
+        notificationServiceInterface Emailnotification = notificationService.createNotification("email");
+        Emailnotification.sendNotification(notificationRequestDTO.getMessage(), notificationRequestDTO.getReceiverEmail(), notificationRequestDTO.getSubject());
+        notificationServiceInterface SMSnotification = notificationService.createNotification("sms");
+        SMSnotification.sendNotification(notificationRequestDTO.getMessage(), notificationRequestDTO.getReceiverPhoneNumber(), notificationRequestDTO.getSubject());
         }
-    }
+
 }
 
