@@ -43,7 +43,7 @@ export default function Products() {
               <div className="box">
                 <img src="image/order1.png" alt="" />
                 <h3>OrderID - 8175959774</h3>
-                <div className="price">Rs 80/ -- 120/-</div>
+                <div className="price">CustomerID - OG1342</div>
                 <button type="button" className="btn">
                   View Status
                 </button>
@@ -53,7 +53,7 @@ export default function Products() {
               <div className="box">
                 <img src="image/order1.png" alt="" />
                 <h3>OrderID - 8175959776</h3>
-                <div className="price">Rs 250/ -- 300/-</div>
+                <div className="price">CustomerID - OG2453</div>
                 <button type="button" className="btn">
                 View Status
                 </button>
@@ -63,7 +63,7 @@ export default function Products() {
               <div className="box">
                 <img src="image/order1.png" alt="" />
                 <h3>OrderID - 8175959777</h3>
-                <div className="price">Rs 1100/ -- 1400/-</div>
+                <div className="price">CustomerID - OG3546</div>
                 <button type="button" className="btn">
                 View Status
                 </button>
@@ -73,7 +73,7 @@ export default function Products() {
               <div className="box">
                 <img src="image/order1.png" alt="" />
                 <h3>OrderID - 8175959781</h3>
-                <div className="price">Rs 240/ -- 320/-</div>
+                <div className="price">CustomerID - OG4765</div>
                 <button type="button" className="btn">
                 View Status
                 </button>
@@ -108,7 +108,7 @@ export default function Products() {
               <div className="box">
                 <img src="image/order1.png" alt="" />
                 <h3>OrderID - 8175959782</h3>
-                <div className="price">Rs 200/ -- 240/-</div>
+                <div className="price">CustomerID - OG5876</div>
                 <button type="button" className="btn">
                 View Status
                 </button>
@@ -118,7 +118,7 @@ export default function Products() {
               <div className="box">
                 <img src="image/order1.png" alt="" />
                 <h3>OrderID - 8175959801</h3>
-                <div className="price">Rs 45/ -- 65/-</div>
+                <div className="price">CustomerID - OG6879</div>
                 <button type="button" className="btn">
                 View Status
                 </button>
@@ -128,7 +128,7 @@ export default function Products() {
               <div className="box">
                 <img src="image/order1.png" alt="" />
                 <h3>OrderID - 8175959802</h3>
-                <div className="price">Rs 150/ -- 200/-</div>
+                <div className="price">CustomerID - OG7980</div>
                 <button type="button" className="btn">
                 View Status
                 </button>
@@ -138,7 +138,7 @@ export default function Products() {
               <div className="box">
                 <img src="image/order1.png" alt="" />
                 <h3>OrderID - 8175959805</h3>
-                <div className="price">Rs 90/ -- 200/-</div>
+                <div className="price">CustomerID - OG8097</div>
                 <button type="button" className="btn">
                 View Status
                 </button>
